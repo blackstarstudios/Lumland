@@ -97,10 +97,10 @@ def load():
 
 # ==================================================================== MAIN GAME LOOP ========================================================================
 
-def main():
+def lumland():
     while run:
         while play:
             pass
 
 # Game Function
-main()
+lumland()
