@@ -189,6 +189,7 @@ biom = {
 # ======================================================================== PLAYER ============================================================================
 
 def characterCreation():
+    clear()
     name = input("What's your name, hero? > ")
     #race = input("What is your race? > ")
     race = "Human"
@@ -235,12 +236,83 @@ class Player:
         self.standing = standing
         self.key = key
 
+    def movement(self):
+        if self.y > 0:
+            print("1 - NORTH")
+        if self.x < x_len:
+            print("2 - EAST")
+        if self.y < y_len:
+            print("3 - SOUTH")
+        if self.x > 0:
+            print("4 - WEST")
+
     def heal(self, amount):
         if self.HP + amount < self.HPMAX:
             self.HP += amount
         else:
             self.HP = self.HPMAX
         print(self.name + "'s HP refilled to " + str(self.HP) + "!")
+
+    def rejuvinate(self, amount):
+        if self.AP + amount < self.APMAX:
+            self.AP += amount
+        else:
+            self.AP = self.APMAX
+        print(self.name + "'s AP refilled to " + str(self.AP) + "!")
+
+    def restore(self, amount):
+        if self.MP + amount < self.MPMAX:
+            self.MP += amount
+        else:
+            self.MP = self.MPMAX
+        print(self.name + "'s MP restored to " + str(self.MP) + "!")
+
+    def recover(self, amount):
+        if self.SP + amount < self.SPMAX:
+            self.SP += amount
+        else:
+            self.SP = self.SPMAX
+        print(self.name + "'s SP recovered to " + str(self.SP) + "!")
+    
+    def characterStatus(self, type):
+        
+        if type == "main":
+            print("NAME: " + player.name)
+            print("HP: " + str(player.HP) + "/" + str(player.HPMAX))
+            print("AP: " + str(player.AP) + "/" + str(player.APMAX))
+            print("MP: " + str(player.MP) + "/" + str(player.MPMAX))
+            print("SP: " + str(player.SP) + "/" + str(player.SPMAX))
+            print("ATK: " + str(player.ATK))
+            print("POTIONS: " + str(player.pot))
+            print("ELIXIRS: " + str(player.elix))
+            print("LUMS: " + str(player.lums))
+            print("COORD:", player.x, player.y)
+
+        elif type == "battle":
+            print("NAME: " + player.name)
+            print("HP: " + str(player.HP) + "/" + str(player.HPMAX))
+            print("AP: " + str(player.AP) + "/" + str(player.APMAX))
+            print("MP: " + str(player.MP) + "/" + str(player.MPMAX))
+            print("SP: " + str(player.SP) + "/" + str(player.SPMAX))
+            print("ATK: " + str(player.ATK))
+            print("POTIONS: " + str(player.pot))
+            print("ELIXIRS: " + str(player.elix))
+
+        elif type == "shop":
+            print("HP: " + str(player.HP) + "/" + str(player.HPMAX))
+            print("AP: " + str(player.AP) + "/" + str(player.APMAX))
+            print("MP: " + str(player.MP) + "/" + str(player.MPMAX))
+            print("SP: " + str(player.SP) + "/" + str(player.SPMAX))
+            print("ATK: " + str(player.ATK))
+            print("POTIONS: " + str(player.pot))
+            print("ELIXIRS: " + str(player.elix))
+            print("LUMS: " + str(player.lums))
+
+    def statusWindow(self):
+        pass
+
+    def inventory(self):
+        pass
 
 # ====================================================================== FUNCTIONS ===========================================================================
 
@@ -263,8 +335,7 @@ def battle():
         sectl()
         print(enemy + "'s HP: " + str(hp) + "/" + str(hpmax))
         print(player.name + "'s HP: " + str(player.HP) + "/" + str(player.HPMAX))
-        print("POTIONS: " + str(player.pot))
-        print("ELIXIR: " + str(player.elix))
+        player.characterStatus()
         sectl()
         print("1 - ATTACK")
         if player.pot > 0:
@@ -338,9 +409,7 @@ def shop():
         bordl()
         print("Welcome to the shop!")
         sectl()
-        print("LUMS: " + str(player.lums))
-        print("POTIONS: " + str(player.pot))
-        print("ELIXIRS: " + str(player.elix))
+        player.characterStatus("shop")
         print("ATK: " + str(player.ATK))
         sectl()
         print("1 - BUY POTION (30HP) - 5 lums")
@@ -450,6 +519,7 @@ def alchemy():
 def save():
     global player
     
+    clear()
     list = [
         player.name,
         player.race, 
@@ -483,6 +553,7 @@ def save():
 def load():
     global player, menu, play
     
+    clear()
     try:
         f = open("load.txt", "r")
         load_list = f.readlines()
@@ -520,10 +591,14 @@ def load():
         input("> ")
 
 def rules():
-    print("rules")
+    clear()
+    print("I'm the creator of this game and these are the rules.")
+    cont()
 
 def options():
+    clear()
     print("options")
+    cont()
 
 # Exit game to main menu
 def exit():
@@ -542,38 +617,38 @@ def opt():
 # ==================================================================== MAIN GAME LOOP ========================================================================
 
 def lumland():
+    global player, run, menu, play, pause, options
+
     while run:
         while menu:
-            print("1, NEW GAME")
-            print("2, LOAD GAME")
-            print("3, RULES")
-            print("4, QUIT GAME")
+            clear()
+            bordl()
+            print("LUMLAND")
+            space()
+            print("1. NEW GAME")
+            print("2. LOAD GAME")
+            print("3. RULES")
+            print("4. QUIT GAME")
+            bordl()
 
-            if rules:
-                print("I'm the creator of this game and these are the rules.")
-                rules = False
-                choice = ""
-                input("> ")
-            else:
-                choice = input("# ")
+            o = opt()
 
-            if choice == "1":
-                clear()
+            if o == 1:
                 player = characterCreation()
                 menu = False
                 play = True
-            elif choice == "2":
-                player.load()
-            elif choice == "3":
-                rules = True
-            elif choice == "4":
+            elif o == 2:
+                load()
+            elif o == 3:
+                rules()
+            elif o == 4:
                 quit()
 
         while play:
             save()  # autosave
             clear()
 
-            if not standing:
+            if not player.standing:
                 if biom[map[player.y][player.x]]["e"]:
                     if random.randint(0, 100) < 30:
                         fight = True
@@ -583,23 +658,10 @@ def lumland():
                 bordl()
                 print("LOCATION: " + biom[map[player.y][player.x]]["t"])
                 undrl()
-                print("NAME: " + player.name)
-                print("HP: " + str(player.HP) + "/" + str(player.HPMAX))
-                print("ATK: " + str(player.ATK))
-                print("POTIONS: " + str(player.pot))
-                print("ELIXIRS: " + str(player.elix))
-                print("LUMS: " + str(player.lums))
-                print("COORD:", player.x, player.y)
+                player.characterStatus()
                 sectl()
                 print("0 - SAVE AND QUIT")
-                if player.y > 0:
-                    print("1 - NORTH")
-                if player.x < x_len:
-                    print("2 - EAST")
-                if player.y < y_len:
-                    print("3 - SOUTH")
-                if player.x > 0:
-                    print("4 - WEST")
+                player.movement()
                 if player.pot > 0:
                     print("5 - USE POTION (30HP)")
                 if player.elix > 0:
@@ -617,19 +679,19 @@ def lumland():
                 elif dest == "1":
                     if player.y > 0:
                         player.y -= 1
-                        standing = False
+                        player.standing = False
                 elif dest == "2":
                     if player.x < x_len:
                         player.x += 1
-                        standing = False
+                        player.standing = False
                 elif dest == "3":
                     if player.y < y_len:
                         player.y += 1
-                        standing = False
+                        player.standing = False
                 elif dest == "4":
                     if player.x > 0:
                         player.x -= 1
-                        standing = False
+                        player.standing = False
                 elif dest == "5":
                     if player.pot > 0:
                         player.pot -= 1
@@ -637,7 +699,7 @@ def lumland():
                     else:
                         print("No potions!")
                     input("> ")
-                    standing = True
+                    player.standing = True
                 elif dest == "6":
                     if player.elix > 0:
                         player.elix -= 1
@@ -645,7 +707,7 @@ def lumland():
                     else:
                         print("No elixirs!")
                     input("> ")
-                    standing = True
+                    player.standing = True
                 elif dest == "7":
                     if map[player.y][player.x] == "shop":
                         buy = True
@@ -657,7 +719,7 @@ def lumland():
                         boss = True
                         cave()
                 else:
-                    standing = True
+                    player.standing = True
 
 # Game Function
 lumland()
