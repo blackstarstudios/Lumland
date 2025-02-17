@@ -20,19 +20,16 @@ options = False
 rules = False
 
 # Minor Game States
-key = False
 fight = False
 buy = False
-standing = True
 speak = False
-boss = False
-talk = False
 inventory = False
 status = False
 craft = False
 brew = False
 enhance = False
 enchant = False
+boss = False
 
 # ======================================================================== DESIGN ============================================================================
 
@@ -62,6 +59,7 @@ def space():
 def sectl():
     print("+-----------------+")
 
+'''
 # Healthbar stats
 max_health = 100
 current_health = 100
@@ -109,6 +107,7 @@ elif current_health > 0.33 * max_health:
     health_color = color_yellow
 else:
     health_color = color_red
+'''
 
 # ======================================================================== ITEMS =============================================================================
 
@@ -189,39 +188,64 @@ biom = {
 
 # ======================================================================== PLAYER ============================================================================
 
-HP = 50
-HPMAX = 50
-ATK = 3
-pot = 1
-elix = 0
-gold = 0
-x = 0
-y = 0
+def characterCreation():
+    name = input("What's your name, hero? > ")
+    #race = input("What is your race? > ")
+    race = "Human"
+    title = "Voyager"
+    job = "Adventurer"
+    HP = 100
+    HPMAX = HP
+    AP = 50
+    APMAX = AP
+    MP = 50
+    MPMAX = MP
+    SP = 100
+    SPMAX = SP
+    ATK = 3
+    pot = 1
+    elix = 0
+    lums = 0
+    x = 0
+    y = 0
+    standing = True
+    key = False
+    return Player(name, race, title, job, HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, ATK, pot, elix, lums, x, y, standing, key)
 
 class Player:
-    def __init__(self, name, race, title, job, HP, AP, MP, SP, lums):
+    def __init__(self, name, race, title, job, HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, ATK, pot, elix, lums, x, y, standing, key):
         self.name = name
         self.race = race
         self.title = title
         self.job = job
         self.HP = HP
+        self.HPMAX = HPMAX
         self.AP = AP
+        self.APMAX = APMAX
         self.MP = MP
+        self.MPMAX = MPMAX
         self.SP = SP
+        self.SPMAX = SPMAX
+        self.ATK = ATK
+        self.pot = pot
+        self.elix = elix
         self.lums = lums
+        self.x = x
+        self.y = y
+        self.standing = standing
+        self.key = key
 
-def heal(amount):
-    global HP
-    if HP + amount < HPMAX:
-        HP += amount
-    else:
-        HP = HPMAX
-    print(name + "'s HP refilled to " + str(HP) + "!")
+    def heal(self, amount):
+        if self.HP + amount < self.HPMAX:
+            self.HP += amount
+        else:
+            self.HP = self.HPMAX
+        print(self.name + "'s HP refilled to " + str(self.HP) + "!")
 
 # ====================================================================== FUNCTIONS ===========================================================================
 
 def battle():
-    global name, fight, play, run, HP, pot, elix, gold, boss
+    global player, fight, play, run, boss
 
     if not boss:
         enemy = random.choice(e_list)
@@ -238,49 +262,49 @@ def battle():
         print("Defeat the " + enemy + "!")
         sectl()
         print(enemy + "'s HP: " + str(hp) + "/" + str(hpmax))
-        print(name + "'s HP: " + str(HP) + "/" + str(HPMAX))
-        print("POTIONS: " + str(pot))
-        print("ELIXIR: " + str(elix))
+        print(player.name + "'s HP: " + str(player.HP) + "/" + str(player.HPMAX))
+        print("POTIONS: " + str(player.pot))
+        print("ELIXIR: " + str(player.elix))
         sectl()
         print("1 - ATTACK")
-        if pot > 0:
+        if player.pot > 0:
             print("2 - USE POTION (30HP)")
-        if elix > 0:
+        if player.elix > 0:
             print("3 - USE ELIXIR (50HP)")
         bordl()
 
         choice = input("# ")
 
         if choice == "1":
-            hp -= ATK
-            print(name + " dealt " + str(ATK) + " damage to the " + enemy + ".")
+            hp -= player.ATK
+            print(player.name + " dealt " + str(player.ATK) + " damage to the " + enemy + ".")
             if hp > 0:
-                HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+                player.HP -= atk
+                print(enemy + " dealt " + str(atk) + " damage to " + player.name + ".")
             input("> ")
 
         elif choice == "2":
-            if pot > 0:
-                pot -= 1
-                heal(30)
-                HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+            if player.pot > 0:
+                player.pot -= 1
+                player.heal(30)
+                player.HP -= atk
+                print(enemy + " dealt " + str(atk) + " damage to " + player.name + ".")
             else:
                 print("No potions!")
             input("> ")
 
         elif choice == "3":
-            if elix > 0:
-                elix -= 1
-                heal(50)
-                HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+            if player.elix > 0:
+                player.elix -= 1
+                player.heal(50)
+                player.HP -= atk
+                print(enemy + " dealt " + str(atk) + " damage to " + player.name + ".")
             else:
                 print("No elixirs!")
             input("> ")
 
-        if HP <= 0:
-            print(enemy + " defeated " + name + "...")
+        if player.HP <= 0:
+            print(enemy + " defeated " + player.name + "...")
             sectl()
             fight = False
             play = False
@@ -289,13 +313,13 @@ def battle():
             input("> ")
 
         if hp <= 0:
-            print(name + " defeated the " + enemy + "!")
+            print(player.name + " defeated the " + enemy + "!")
             sectl()
             fight = False
-            gold += g
-            print("You've found " + str(g) + " gold!")
+            player.lums += g
+            print("You've found " + str(g) + " self.lums!")
             if random.randint(0, 100) < 30:
-                pot += 1
+                player.pot += 1
                 print("You've found a potion!")
             if enemy == "Dragon":
                 sectl()
@@ -307,66 +331,66 @@ def battle():
             clear()
 
 def shop():
-    global buy, gold, pot, elix, ATK
+    global player, buy
 
     while buy:
         clear()
         bordl()
         print("Welcome to the shop!")
         sectl()
-        print("GOLD: " + str(gold))
-        print("POTIONS: " + str(pot))
-        print("ELIXIRS: " + str(elix))
-        print("ATK: " + str(ATK))
+        print("LUMS: " + str(player.lums))
+        print("POTIONS: " + str(player.pot))
+        print("ELIXIRS: " + str(player.elix))
+        print("ATK: " + str(player.ATK))
         sectl()
-        print("1 - BUY POTION (30HP) - 5 GOLD")
-        print("2 - BUY ELIXIR (MAXHP) - 8 GOLD")
-        print("3 - UPGRADE WEAPON (+2ATK) - 10 GOLD")
+        print("1 - BUY POTION (30HP) - 5 lums")
+        print("2 - BUY ELIXIR (MAXHP) - 8 lums")
+        print("3 - UPGRADE WEAPON (+2ATK) - 10 lums")
         print("4 - LEAVE")
         bordl()
 
         choice = input("# ")
 
         if choice == "1":
-            if gold >= 5:
+            if player.lums >= 5:
                 pot += 1
-                gold -= 5
+                player.lums -= 5
                 print("You've bought a potion!")
             else:
-                print("Not enough gold!")
+                print("Not enough lums!")
             input("> ")
         elif choice == "2":
-            if gold >= 8:
-                elix += 1
-                gold -= 8
+            if player.lums >= 8:
+                player.elix += 1
+                player.lums -= 8
                 print("You've bought an elixir!")
             else:
-                print("Not enough gold!")
+                print("Not enough lums!")
             input("> ")
         elif choice == "3":
-            if gold >= 10:
-                ATK += 2
-                gold -= 10
+            if player.lums >= 10:
+                player.ATK += 2
+                player.lums -= 10
                 print("You've upgraded your weapon!")
             else:
-                print("Not enough gold!")
+                print("Not enough lums!")
             input("> ")
         elif choice == "4":
             buy = False
 
 def mayor():
-    global speak, key
+    global player, speak, key
 
     while speak:
         clear()
         bordl()
-        print("Hello there, " + name + "!")
-        if ATK < 10:
+        print("Hello there, " + player.name + "!")
+        if player.ATK < 10:
             print("You're not strong enough to face the dragon yet! Keep practicing and come back later!")
-            key = False
+            player.key = False
         else:
             print("You might want to take on the dragon now! Take this key but be careful with the beast!")
-            key = True
+            player.key = True
 
         sectl()
         print("1 - LEAVE")
@@ -378,14 +402,14 @@ def mayor():
             speak = False
 
 def cave():
-    global boss, key, fight
+    global player, boss, fight
 
     while boss:
         clear()
         bordl()
         print("Here lies the cave of the dragon. What will you do?")
         sectl()
-        if key:
+        if player.key:
             print("1 - USE KEY")
         print("2 - TURN BACK")
         bordl()
@@ -393,7 +417,7 @@ def cave():
         choice = input("# ")
 
         if choice == "1":
-            if key:
+            if player.key:
                 fight = True
                 battle()
         elif choice == "2":
@@ -422,28 +446,31 @@ def alchemy():
 
 # ======================================================================== LOGIC =============================================================================
 
-def rules():
-    print("rules")
-
-def options():
-    print("options")
-
-# Exit game to main menu
-def exit():
-    pass
-
 # Save game file
 def save():
+    global player
+    
     list = [
-        name,
-        str(HP),
-        str(ATK),
-        str(pot),
-        str(elix),
-        str(gold),
-        str(x),
-        str(y),
-        str(key)
+        player.name,
+        player.race, 
+        player.title, 
+        player.job,
+        str(player.HP),
+        str(player.HPMAX), 
+        str(player.AP), 
+        str(player.APMAX), 
+        str(player.MP), 
+        str(player.MPMAX), 
+        str(player.SP), 
+        str(player.SPMAX),
+        str(player.ATK),
+        str(player.pot),
+        str(player.elix),
+        str(player.lums),
+        str(player.x),
+        str(player.y),
+        str(player.standing),
+        str(player.key)
     ]
 
     file = open("load.txt", "w")
@@ -454,6 +481,52 @@ def save():
 
 # Load game file
 def load():
+    global player, menu, play
+    
+    try:
+        f = open("load.txt", "r")
+        load_list = f.readlines()
+        if len(load_list) == 20:
+            player.name = load_list[0][:-1]
+            player.race = load_list[1][:-1]
+            player.title = load_list[2][:-1]
+            player.job = load_list[3][:-1]
+            player.HP = int(load_list[4][:-1])
+            player.HPMAX = int(load_list[5][:-1])
+            player.AP = int(load_list[6][:-1])
+            player.APMAX = int(load_list[7][:-1])
+            player.MP = int(load_list[8][:-1])
+            player.MPMAX = int(load_list[9][:-1])
+            player.SP = int(load_list[10][:-1])
+            player.SPMAX = int(load_list[11][:-1])
+            player.ATK = int(load_list[12][:-1])
+            player.pot = int(load_list[13][:-1])
+            player.elix = int(load_list[14][:-1])
+            player.lums = int(load_list[15][:-1])
+            player.x = int(load_list[16][:-1])
+            player.y = int(load_list[17][:-1])
+            player.standing = bool(load_list[18][:-1])
+            player.key = bool(load_list[19][:-1])
+            clear()
+            print("Welcome back, " + player.name + "!")
+            input("> ")
+            menu = False
+            play = True
+        else:
+            print("Corrupt save file!")
+            input("> ")
+    except OSError:
+        print("No loadable save file!")
+        input("> ")
+
+def rules():
+    print("rules")
+
+def options():
+    print("options")
+
+# Exit game to main menu
+def exit():
     pass
 
 # Pause game text
@@ -486,34 +559,11 @@ def lumland():
 
             if choice == "1":
                 clear()
-                name = input("# What's your name, hero? ")
+                player = characterCreation()
                 menu = False
                 play = True
             elif choice == "2":
-                try:
-                    f = open("load.txt", "r")
-                    load_list = f.readlines()
-                    if len(load_list) == 9:
-                        name = load_list[0][:-1]
-                        HP = int(load_list[1][:-1])
-                        ATK = int(load_list[2][:-1])
-                        pot = int(load_list[3][:-1])
-                        elix = int(load_list[4][:-1])
-                        gold = int(load_list[5][:-1])
-                        x = int(load_list[6][:-1])
-                        y = int(load_list[7][:-1])
-                        key = bool(load_list[8][:-1])
-                        clear()
-                        print("Welcome back, " + name + "!")
-                        input("> ")
-                        menu = False
-                        play = True
-                    else:
-                        print("Corrupt save file!")
-                        input("> ")
-                except OSError:
-                    print("No loadable save file!")
-                    input("> ")
+                player.load()
             elif choice == "3":
                 rules = True
             elif choice == "4":
@@ -524,86 +574,86 @@ def lumland():
             clear()
 
             if not standing:
-                if biom[map[y][x]]["e"]:
+                if biom[map[player.y][player.x]]["e"]:
                     if random.randint(0, 100) < 30:
                         fight = True
                         battle()
 
             if play:
                 bordl()
-                print("LOCATION: " + biom[map[y][x]]["t"])
+                print("LOCATION: " + biom[map[player.y][player.x]]["t"])
                 undrl()
-                print("NAME: " + name)
-                print("HP: " + str(HP) + "/" + str(HPMAX))
-                print("ATK: " + str(ATK))
-                print("POTIONS: " + str(pot))
-                print("ELIXIRS: " + str(elix))
-                print("GOLD: " + str(gold))
-                print("COORD:", x, y)
+                print("NAME: " + player.name)
+                print("HP: " + str(player.HP) + "/" + str(player.HPMAX))
+                print("ATK: " + str(player.ATK))
+                print("POTIONS: " + str(player.pot))
+                print("ELIXIRS: " + str(player.elix))
+                print("LUMS: " + str(player.lums))
+                print("COORD:", player.x, player.y)
                 sectl()
                 print("0 - SAVE AND QUIT")
-                if y > 0:
+                if player.y > 0:
                     print("1 - NORTH")
-                if x < x_len:
+                if player.x < x_len:
                     print("2 - EAST")
-                if y < y_len:
+                if player.y < y_len:
                     print("3 - SOUTH")
-                if x > 0:
+                if player.x > 0:
                     print("4 - WEST")
-                if pot > 0:
+                if player.pot > 0:
                     print("5 - USE POTION (30HP)")
-                if elix > 0:
+                if player.elix > 0:
                     print("6 - USE ELIXIR (50HP)")
-                if map[y][x] == "shop" or map[y][x] == "mayor" or map[y][x] == "cave":
+                if map[player.y][player.x] == "shop" or map[player.y][player.x] == "mayor" or map[player.y][player.x] == "cave":
                     print("7 - ENTER")
                 bordl()
 
-                dest = input("# ")
+                dest = input("> ")
 
                 if dest == "0":
                     play = False
                     menu = True
                     save()
                 elif dest == "1":
-                    if y > 0:
-                        y -= 1
+                    if player.y > 0:
+                        player.y -= 1
                         standing = False
                 elif dest == "2":
-                    if x < x_len:
-                        x += 1
+                    if player.x < x_len:
+                        player.x += 1
                         standing = False
                 elif dest == "3":
-                    if y < y_len:
-                        y += 1
+                    if player.y < y_len:
+                        player.y += 1
                         standing = False
                 elif dest == "4":
-                    if x > 0:
-                        x -= 1
+                    if player.x > 0:
+                        player.x -= 1
                         standing = False
                 elif dest == "5":
-                    if pot > 0:
-                        pot -= 1
-                        heal(30)
+                    if player.pot > 0:
+                        player.pot -= 1
+                        player.heal(30)
                     else:
                         print("No potions!")
                     input("> ")
                     standing = True
                 elif dest == "6":
-                    if elix > 0:
-                        elix -= 1
-                        heal(50)
+                    if player.elix > 0:
+                        player.elix -= 1
+                        player.heal(50)
                     else:
                         print("No elixirs!")
                     input("> ")
                     standing = True
                 elif dest == "7":
-                    if map[y][x] == "shop":
+                    if map[player.y][player.x] == "shop":
                         buy = True
                         shop()
-                    if map[y][x] == "mayor":
+                    if map[player.y][player.x] == "mayor":
                         speak = True
                         mayor()
-                    if map[y][x] == "cave":
+                    if map[player.y][player.x] == "cave":
                         boss = True
                         cave()
                 else:
