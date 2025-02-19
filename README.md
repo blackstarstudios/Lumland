@@ -16,11 +16,19 @@ Feature Implementation Timeline:
 - [ ] Multi-shop system
 - [ ] Multidata save function
 - [ ] Multidata load function
+- [ ] Save files system
 - [ ] Player status window
 - [ ] Item objects
+- [ ] Random loot tables
 - [ ] Inventory system
+- [ ] Enchant system
+- [ ] Enhancment system
+- [ ] Crafting system
+- [ ] Alchemy system
 - [ ] Enemy ai
 - [ ] NPC ai
 - [ ] Multimap rework
 - [ ] Dungeons
 - [ ] Religon system
+- [ ] File-executable conversion
+- [ ] 
