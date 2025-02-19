@@ -17,6 +17,9 @@ Feature Implementation Timeline:
 - [ ] Multidata save function
 - [ ] Multidata load function
 - [ ] Save files system
+- [ ] Skills system
+- [ ] Magic system
+- [ ] Battle arts system
 - [ ] Player status window
 - [ ] Item objects
 - [ ] Random loot tables
