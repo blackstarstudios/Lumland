@@ -21,6 +21,10 @@ Feature Implementation Timeline:
 - [ ] Magic system
 - [ ] Battle arts system
 - [ ] Player status window
+- [ ] Global player coordinates (gx,gy) (continents)
+- [ ] National player coordinates (nx,ny) (countries)
+- [ ] Regional player coordinates (rx,ry) (regions)
+- [ ] Local player coordinates (lx,ly) (cities)
 - [ ] Item objects
 - [ ] Random loot tables
 - [ ] Inventory system
@@ -28,10 +32,12 @@ Feature Implementation Timeline:
 - [ ] Enhancment system
 - [ ] Crafting system
 - [ ] Alchemy system
-- [ ] Enemy ai
-- [ ] NPC ai
+- [ ] basic Enemy ai
+- [ ] basic NPC ai
 - [ ] Multimap rework
 - [ ] Dungeons
 - [ ] Religon system
 - [ ] File-executable conversion
-- [ ] 
+- [ ] Named items
+- [ ] Special NPCs
+- [ ] Economy
