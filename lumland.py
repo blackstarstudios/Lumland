@@ -10,7 +10,9 @@ import Design.colors as colors
 # Custom Libraries
 
 # Abilites
-#import Abilities.Magic as magic
+import Abilities.Magic as magic
+import Abilities.BattleArts as battleArts
+import Abilities.Skills as skills
 
 # Items
 import Items.Materials as materials
