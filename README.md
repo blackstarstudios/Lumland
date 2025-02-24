@@ -2,7 +2,7 @@
  Fantasy text rpg based in the Lumverse by Blackstar.
 
 Feature Implementation Timeline:
-- [ ] Level up system
+- [x] Level up system
 - [ ] More Stats
 - [ ] Attributes
 - [ ] Titles and jobs

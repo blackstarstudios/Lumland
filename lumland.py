@@ -4,11 +4,26 @@
 # ====================================================================== LIBRARIES ===========================================================================
 
 # Official Libraries
-import os, math, random
-import colors
+import os, _pickle as pickle, math, random, time
+import Design.colors as colors
 
 # Custom Libraries
 
+# Abilites
+#import Abilities.Magic as magic
+
+# Items
+import Items.Materials as materials
+import Items.Consumables as consumables
+import Items.Equipment as equipment
+import Items.Wearables as wearables
+import Items.Weapons as weapons
+
+# NPCs
+import NPCs.Monsters as monsters
+import NPCs.Characters as characters
+
+# Locations
 
 # ======================================================================== STATES ============================================================================
 
@@ -150,8 +165,8 @@ def characterCreation():
     name = "Greg"
     #race = input("What is your race? > ")
     race = "Human"
-    title = "Voyager"
-    job = "Adventurer"
+    title = ["Sword King", "Dragon Slayer"]
+    job = ["Adventurer", "Knight"]
     HP = 100
     HPMAX = HP
     AP = 50
@@ -216,28 +231,28 @@ class Player:
             self.HP += amount
         else:
             self.HP = self.HPMAX
-        print(self.name + "'s HP refilled to " + str(self.HP) + "!")
+        print(f"{self.name}'s HP healed to {self.HP}")
 
-    def rejuvinate(self, amount):
+    def rejuvenate(self, amount):
         if self.AP + amount < self.APMAX:
             self.AP += amount
         else:
             self.AP = self.APMAX
-        print(self.name + "'s AP refilled to " + str(self.AP) + "!")
+        print(f"{self.name}'s AP rejuvenated to {self.AP}")
 
     def restore(self, amount):
         if self.MP + amount < self.MPMAX:
             self.MP += amount
         else:
             self.MP = self.MPMAX
-        print(self.name + "'s MP restored to " + str(self.MP) + "!")
+        print(f"{self.name}'s MP restored to {self.MP}")
 
     def recover(self, amount):
         if self.SP + amount < self.SPMAX:
             self.SP += amount
         else:
             self.SP = self.SPMAX
-        print(self.name + "'s SP recovered to " + str(self.SP) + "!")
+        print(f"{self.name}'s SP recovered to {self.SP}")
 
     def levelUp(self, amount):
         # Total exp needed to reach lvl. 999: 10,000,009,511
@@ -362,45 +377,27 @@ class Player:
     def characterStatus(self, type):
         
         if type == "main":
-            print("NAME: " + player.name)
+            print(f"NAME: {player.name}")
             self.healthBars(1, 1, 1, 1, 1)
-            ''' 
-            print("HP: " + str(player.HP) + "/" + str(player.HPMAX))
-            print("AP: " + str(player.AP) + "/" + str(player.APMAX))
-            print("MP: " + str(player.MP) + "/" + str(player.MPMAX))
-            print("SP: " + str(player.SP) + "/" + str(player.SPMAX))
-            '''
-            print("ATK: " + str(player.ATK))
-            print("POTIONS: " + str(player.pot))
-            print("ELIXIRS: " + str(player.elix))
-            print("LUMS: " + str(player.lums))
-            print("COORD:", player.x, player.y)
+            print(f"ATK: {player.ATK}")
+            print(f"POTIONS: {player.pot}")
+            print(f"ELIXIRS: {player.elix}")
+            print(f"LUMS: {player.lums}")
+            print(f"COORD: {player.x}, {player.y}")
 
         elif type == "battle":
-            print("NAME: " + player.name)
+            print(f"NAME: {player.name}")
             self.healthBars(1, 1, 1, 1, 1)
-            ''' 
-            print("HP: " + str(player.HP) + "/" + str(player.HPMAX))
-            print("AP: " + str(player.AP) + "/" + str(player.APMAX))
-            print("MP: " + str(player.MP) + "/" + str(player.MPMAX))
-            print("SP: " + str(player.SP) + "/" + str(player.SPMAX))
-            '''
-            print("ATK: " + str(player.ATK))
-            print("POTIONS: " + str(player.pot))
-            print("ELIXIRS: " + str(player.elix))
+            print(f"ATK: {player.ATK}")
+            print(f"POTIONS: {player.pot}")
+            print(f"ELIXIRS: {player.elix}")
 
         elif type == "shop":
             self.healthBars(1, 1, 1, 1, 1)
-            ''' 
-            print("HP: " + str(player.HP) + "/" + str(player.HPMAX))
-            print("AP: " + str(player.AP) + "/" + str(player.APMAX))
-            print("MP: " + str(player.MP) + "/" + str(player.MPMAX))
-            print("SP: " + str(player.SP) + "/" + str(player.SPMAX))
-            '''
-            print("ATK: " + str(player.ATK))
-            print("POTIONS: " + str(player.pot))
-            print("ELIXIRS: " + str(player.elix))
-            print("LUMS: " + str(player.lums))
+            print(f"ATK: {player.ATK}")
+            print(f"POTIONS: {player.pot}")
+            print(f"ELIXIRS: {player.elix}")
+            print(f"LUMS: {player.lums}")
 
     def statusWindow(self):
         pass
@@ -425,10 +422,10 @@ def battle():
     while fight:
         clear()
         bordl()
-        print("Defeat the " + enemy + "!")
+        print(F"Defeat the {enemy}!")
         sectl()
-        print(enemy + "'s HP: " + str(hp) + "/" + str(hpmax))
-        print(player.name + "'s HP: " + str(player.HP) + "/" + str(player.HPMAX))
+        print(f"{enemy}'s HP: {hp} / {hpmax}")
+        print(f"{player.name}'s HP: {player.HP} / {player.HPMAX}")
         player.characterStatus("battle")
         sectl()
         print("1 - ATTACK")
@@ -442,10 +439,10 @@ def battle():
 
         if choice == "1":
             hp -= player.ATK
-            print(player.name + " dealt " + str(player.ATK) + " damage to the " + enemy + ".")
+            print(f"{player.name} dealt {player.ATK} damage to the {enemy}")
             if hp > 0:
                 player.HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + player.name + ".")
+                print(f"{enemy} dealt {atk} damage to {player.name}")
             input("> ")
 
         elif choice == "2":
@@ -453,7 +450,7 @@ def battle():
                 player.pot -= 1
                 player.heal(30)
                 player.HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + player.name + ".")
+                print(f"{enemy} dealt {atk} damage to {player.name}")
             else:
                 print("No potions!")
             input("> ")
@@ -463,13 +460,13 @@ def battle():
                 player.elix -= 1
                 player.heal(50)
                 player.HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + player.name + ".")
+                print(f"{enemy} dealt {atk} damage to {player.name}")
             else:
                 print("No elixirs!")
             input("> ")
 
         if player.HP <= 0:
-            print(enemy + " defeated " + player.name + "...")
+            print(f"{enemy} defeated {player.name}...")
             sectl()
             fight = False
             play = False
@@ -478,11 +475,11 @@ def battle():
             input("> ")
 
         if hp <= 0:
-            print(player.name + " defeated the " + enemy + "!")
+            print(f"{player.name} defeated the {enemy}!")
             sectl()
             fight = False
             player.lums += g
-            print("You've found " + str(g) + " lums!")
+            print(f"You've found {g} lums!")
             if random.randint(0, 100) < 30:
                 player.pot += 1
                 print("You've found a potion!")
@@ -504,7 +501,7 @@ def shop():
         print("Welcome to the shop!")
         sectl()
         player.characterStatus("shop")
-        print("ATK: " + str(player.ATK))
+        print(f"ATK: {player.ATK}")
         sectl()
         print("1 - BUY POTION (30HP) - 5 lums")
         print("2 - BUY ELIXIR (MAXHP) - 8 lums")
@@ -556,7 +553,7 @@ def mayor():
     while speak:
         clear()
         bordl()
-        print("Hello there, " + player.name + "!")
+        print(f"Hello there, {player.name}!")
         if player.ATK < 10:
             print("You're not strong enough to face the dragon yet! Keep practicing and come back later!")
             player.key = False
@@ -612,11 +609,81 @@ def alchemy():
 
 # ======================================================================== LOGIC =============================================================================
 
+save1_path = "Saves\Save1\player_data.txt"
+save2_path = "Saves\Save2\player_data.txt"
+save3_path = "Saves\Save3\player_data.txt"
+
+def saveLastModified(path): return time.ctime(os.path.getmtime(path))
+
 # Save game file
 def save():
-    global player
-    
+    global player, save_path, o
+
     clear()
+    print("Which file do you want to save to?")
+    print(f"1. Save file 1 -> Last saved on {saveLastModified(save1_path)}")
+    print(f"2. Save file 2 -> Last saved on {saveLastModified(save2_path)}")
+    print(f"3. Save file 3 -> Last saved on {saveLastModified(save3_path)}")
+    
+    o = opt()
+
+    # Simple player data save
+    clear()
+    sv_player_list = [
+        player.name,
+        player.race,
+        str(player.title),
+        str(player.job), 
+        str(player.HP), 
+        str(player.HPMAX), 
+        str(player.AP), 
+        str(player.APMAX), 
+        str(player.MP), 
+        str(player.MPMAX), 
+        str(player.SP), 
+        str(player.SPMAX), 
+        str(player.LVL), 
+        str(player.EXP), 
+        str(player.EXPMAX), 
+        str(player.REP), 
+        str(player.ATK), 
+        str(player.pot), 
+        str(player.elix), 
+        str(player.lums), 
+        str(player.x), 
+        str(player.y), 
+        str(player.standing), 
+        str(player.key)
+        ]
+    
+    if o == 1:
+        save_path = save1_path
+    elif o == 2:
+        save_path = save2_path
+    elif o == 3:
+        save_path = save3_path
+
+    with open(save_path, "w") as file:
+            for item in sv_player_list:
+                file.writelines(item + "\n")
+
+    # Simple player data save
+    clear()
+    mv_player_list = [
+        player.title, 
+        player.job, 
+        ]
+
+    with open(save_path, "a") as file:
+        file.writelines(" ")
+        for item in mv_player_list:
+            file.write(item + " ")
+
+    file.close()
+    print(f"Player data saved to file {o} sucessfully!")
+    cont()
+    
+    '''
     list = [
         player.name,
         player.race, 
@@ -648,11 +715,148 @@ def save():
     for item in list:
         file.write(item + "\n")
     file.close()
+    '''
+
+# Autosave game file
+def autosave():
+    global player, save_path, o
+    
+    # Player data save
+    clear()
+    player_list = [
+        player.name, 
+        player.race, 
+        str(player.title), 
+        str(player.job), 
+        str(player.HP), 
+        str(player.HPMAX), 
+        str(player.AP), 
+        str(player.APMAX), 
+        str(player.MP), 
+        str(player.MPMAX), 
+        str(player.SP), 
+        str(player.SPMAX), 
+        str(player.LVL), 
+        str(player.EXP), 
+        str(player.EXPMAX), 
+        str(player.REP), 
+        str(player.ATK), 
+        str(player.pot), 
+        str(player.elix), 
+        str(player.lums), 
+        str(player.x), 
+        str(player.y), 
+        str(player.standing), 
+        str(player.key)
+        ]
+
+    with open(save_path, "w") as file:
+            for item in player_list:
+                file.writelines(item + "\n")
+    file.close()
+
+# Quicksave game file
+def quicksave():
+    global player, save_path, o
+    
+    # Player data save
+    clear()
+    player_list = [
+        player.name, 
+        player.race, 
+        str(player.title), 
+        str(player.job), 
+        str(player.HP), 
+        str(player.HPMAX), 
+        str(player.AP), 
+        str(player.APMAX), 
+        str(player.MP), 
+        str(player.MPMAX), 
+        str(player.SP), 
+        str(player.SPMAX), 
+        str(player.LVL), 
+        str(player.EXP), 
+        str(player.EXPMAX), 
+        str(player.REP), 
+        str(player.ATK), 
+        str(player.pot), 
+        str(player.elix), 
+        str(player.lums), 
+        str(player.x), 
+        str(player.y), 
+        str(player.standing), 
+        str(player.key)
+        ]
+
+    with open(save_path, "w") as file:
+            for item in player_list:
+                file.writelines(item + "\n")
+    file.close()
+    print(f"Player data saved to file {o} sucessfully!")
+    cont()
 
 # Load game file
 def load():
-    global player, menu, play
+    global player, menu, play, load_path
+
+    clear()
+    print("Which file do you want to load?")
+    print(f"1. Save file 1 -> Last saved on {saveLastModified(save1_path)}")
+    print(f"2. Save file 2 -> Last saved on {saveLastModified(save2_path)}")
+    print(f"3. Save file 3 -> Last saved on {saveLastModified(save3_path)}")
     
+    o = opt()
+
+    if o == 1:
+        load_path = save1_path
+    elif o == 2:
+        load_path = save2_path
+    elif o == 3:
+        load_path = save3_path
+
+    # Player data load
+    try:
+        file = open(load_path, "r")
+        player_list = file.readlines()
+        if len(player_list) == 24:            
+            player.name = player_list[0][:-1]
+            player.race = player_list[1][:-1]
+            player.title = list(player_list[2][:-1]),
+            player.job = list(player_list[3][:-1]),
+            player.HP = int(player_list[4][:-1]),
+            player.HPMAX = int(player_list[5][:-1]),
+            player.AP = int(player_list[6][:-1]),
+            player.APMAX = int(player_list[7][:-1]),
+            player.MP = int(player_list[8][:-1]),
+            player.MPMAX = int(player_list[9][:-1]),
+            player.SP = int(player_list[10][:-1]),
+            player.SPMAX = int(player_list[11][:-1]),
+            player.LVL = int(player_list[12][:-1]),
+            player.EXP = int(player_list[12][:-1]),
+            player.EXPMAX = int(player_list[14][:-1]),
+            player.REP = int(player_list[15][:-1]),
+            player.ATK = int(player_list[16][:-1]),
+            player.pot = int(player_list[17][:-1]),
+            player.elix = int(player_list[18][:-1]),
+            player.lums = int(player_list[19][:-1]),
+            player.x = int(player_list[20][:-1]),
+            player.y = int(player_list[21][:-1]),
+            player.standing = bool(player_list[22][:-1]),
+            player.key = bool(player_list[23][:-1]),
+        clear()
+        print(f"Welcome back, {player.name}!")
+        cont()
+        menu = False
+        play = True
+
+    except OSError:
+        clear()
+        print("No loadable save file!")
+        cont()
+
+    file.close()
+    
+    '''
     clear()
     try:
         f = open("load.txt", "r")
@@ -692,6 +896,7 @@ def load():
     except OSError:
         print("No loadable save file!")
         input("> ")
+    '''
 
 def rules():
     clear()
@@ -708,8 +913,7 @@ def exit():
     pass
 
 # Pause game text
-def cont():
-    input("> ")
+def cont(): input("> ")
 
 # In-game choice
 def opt():
@@ -726,7 +930,7 @@ def lumland():
         while menu:
             clear()
             bordl()
-            print("LUMLAND")
+            print("  LUMLAND")
             space()
             print("1. NEW GAME")
             print("2. LOAD GAME")
@@ -738,6 +942,7 @@ def lumland():
 
             if o == 1:
                 player = characterCreation()
+                save()
                 menu = False
                 play = True
             elif o == 2:
@@ -748,7 +953,7 @@ def lumland():
                 quit()
 
         while play:
-            save()  # autosave
+            autosave() # autosave
             clear()
 
             if not player.standing:
@@ -759,7 +964,7 @@ def lumland():
 
             if play:
                 bordl()
-                print("LOCATION: " + biom[map[player.y][player.x]]["t"])
+                print(f"LOCATION: {biom[map[player.y][player.x]]["t"]}")
                 undrl()
                 player.characterStatus("main")
                 sectl()
@@ -778,7 +983,7 @@ def lumland():
                 if dest == "0":
                     play = False
                     menu = True
-                    save()
+                    autosave()
                 elif dest == "1":
                     if player.y > 0:
                         player.y -= 1
