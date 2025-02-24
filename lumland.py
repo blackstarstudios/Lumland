@@ -11,7 +11,7 @@ import Design.colors as colors
 
 # Abilites
 import Abilities.Magic as magic
-import Abilities.BattleArts as battleArts
+#import Abilities.BattleArts as battleArts
 import Abilities.Skills as skills
 
 # Items
