@@ -161,6 +161,24 @@ biom = {
 
 # ======================================================================== PLAYER ============================================================================
 
+#  RACE NAME  |   HP   AP   MP   SP   STR   DEF   SPD   AGI   PRO   MAG   CHR   INT   FRT   LUC
+#----------------------------------------------------------------------------------------------
+# Giants      |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Beastmen    |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Orcs        |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Dwarves     |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Ogres       |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Marrons     |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Ivorans     |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Laudquin    |  100  050  050  100   100   100   050   050   100   050   050   100   050   050
+# Parakere    |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Hunyadi     |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Carmiseans  |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Azureans    |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Tearans     |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Elves       |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+# Faries      |  000  000  000  000   000   000   000   000   000   000   000   000   000   000
+
 def characterCreation():
     clear()
     #name = input("What's your name, hero? > ")
@@ -181,7 +199,33 @@ def characterCreation():
     EXP = 0
     EXPMAX = 100
     REP = 0
-    ATK = 3
+    STR = 10
+    DEF = 10
+    SPD = 10
+    AGI = 10
+    PRO = 10
+    MAG = 10
+    CHR = 10
+    INT = 10
+    FRT = 10
+    LUC = 10
+    primary = None 
+    secondary = None
+    head = None
+    ears = None
+    eyes = None
+    neck = None
+    shoulders = None 
+    back = None
+    chest = None
+    arms = None
+    wrist = None
+    hands = None
+    fingers = None
+    waist = None
+    legs = None
+    feet = None
+    inventory = None
     pot = 1
     elix = 0
     lums = 100
@@ -189,10 +233,14 @@ def characterCreation():
     y = 0
     standing = True
     key = False
-    return Player(name, race, title, job, HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, ATK, pot, elix, lums, x, y, standing, key)
+    return Player(name, race, title, job, HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, lums, x, y, standing, key)
 
 class Player:
-    def __init__(self, name, race, title, job, HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, ATK, pot, elix, lums, x, y, standing, key):
+    def __init__(self, name, race, title, job, 
+                 HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, 
+                 STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
+                 primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
+                 inventory, pot, elix, lums, x, y, standing, key):
         self.name = name
         self.race = race
         self.title = title
@@ -209,7 +257,33 @@ class Player:
         self.EXP = EXP
         self.EXPMAX = EXPMAX
         self.REP = REP
-        self.ATK = ATK
+        self.STR = STR
+        self.DEF = DEF
+        self.SPD = SPD
+        self.AGI = AGI
+        self.PRO = PRO
+        self.MAG = MAG
+        self.CHR = CHR
+        self.INT = INT
+        self.FRT = FRT
+        self.LUC = LUC
+        self.primary = primary 
+        self.secondary = secondary
+        self.head = head
+        self.ears = ears
+        self.eyes = eyes
+        self.neck = neck
+        self.shoulders = shoulders 
+        self.back = back
+        self.chest = ches
+        self.arms = arms
+        self.wrist = wrist
+        self.hands = hands
+        self.fingers = fingers
+        self.waist = waist
+        self.legs = legs
+        self.feet = feet
+        self.inventory = inventory
         self.pot = pot
         self.elix = elix
         self.lums = lums
@@ -381,7 +455,7 @@ class Player:
         if type == "main":
             print(f"NAME: {player.name}")
             self.healthBars(1, 1, 1, 1, 1)
-            print(f"ATK: {player.ATK}")
+            print(f"STR: {player.STR}")
             print(f"POTIONS: {player.pot}")
             print(f"ELIXIRS: {player.elix}")
             print(f"LUMS: {player.lums}")
@@ -390,13 +464,13 @@ class Player:
         elif type == "battle":
             print(f"NAME: {player.name}")
             self.healthBars(1, 1, 1, 1, 1)
-            print(f"ATK: {player.ATK}")
+            print(f"STR: {player.STR}")
             print(f"POTIONS: {player.pot}")
             print(f"ELIXIRS: {player.elix}")
 
         elif type == "shop":
             self.healthBars(1, 1, 1, 1, 1)
-            print(f"ATK: {player.ATK}")
+            print(f"STR: {player.STR}")
             print(f"POTIONS: {player.pot}")
             print(f"ELIXIRS: {player.elix}")
             print(f"LUMS: {player.lums}")
@@ -418,7 +492,7 @@ def battle():
         enemy = "Dragon"
     hp = mobs[enemy]["hp"]
     hpmax = hp
-    atk = mobs[enemy]["at"]
+    STR = mobs[enemy]["at"]
     g = mobs[enemy]["go"]
 
     while fight:
@@ -440,19 +514,19 @@ def battle():
         choice = input("# ")
 
         if choice == "1":
-            hp -= player.ATK
-            print(f"{player.name} dealt {player.ATK} damage to the {enemy}")
+            hp -= player.STR
+            print(f"{player.name} dealt {player.STR} damage to the {enemy}")
             if hp > 0:
-                player.HP -= atk
-                print(f"{enemy} dealt {atk} damage to {player.name}")
+                player.HP -= STR
+                print(f"{enemy} dealt {STR} damage to {player.name}")
             input("> ")
 
         elif choice == "2":
             if player.pot > 0:
                 player.pot -= 1
                 player.heal(30)
-                player.HP -= atk
-                print(f"{enemy} dealt {atk} damage to {player.name}")
+                player.HP -= STR
+                print(f"{enemy} dealt {STR} damage to {player.name}")
             else:
                 print("No potions!")
             input("> ")
@@ -461,8 +535,8 @@ def battle():
             if player.elix > 0:
                 player.elix -= 1
                 player.heal(50)
-                player.HP -= atk
-                print(f"{enemy} dealt {atk} damage to {player.name}")
+                player.HP -= STR
+                print(f"{enemy} dealt {STR} damage to {player.name}")
             else:
                 print("No elixirs!")
             input("> ")
@@ -503,12 +577,12 @@ def shop():
         print("Welcome to the shop!")
         sectl()
         player.characterStatus("shop")
-        print(f"ATK: {player.ATK}")
+        print(f"STR: {player.STR}")
         sectl()
         print("1 - BUY POTION (30HP) - 5 lums")
         print("2 - BUY ELIXIR (MAXHP) - 8 lums")
-        print("3 - UPGRADE WEAPON (+2ATK) - 10 lums")
-        print("4 - UPGRADE REP (+20ATK) - 1 lums")
+        print("3 - UPGRADE WEAPON (+2STR) - 10 lums")
+        print("4 - UPGRADE REP (+20STR) - 1 lums")
         print("5 - LEAVE")
         bordl()
 
@@ -532,7 +606,7 @@ def shop():
             input("> ")
         elif choice == "3":
             if player.lums >= 10:
-                player.ATK += 2
+                player.STR += 2
                 player.lums -= 10
                 print("You've upgraded your weapon!")
             else:
@@ -556,7 +630,7 @@ def mayor():
         clear()
         bordl()
         print(f"Hello there, {player.name}!")
-        if player.ATK < 10:
+        if player.STR < 10:
             print("You're not strong enough to face the dragon yet! Keep practicing and come back later!")
             player.key = False
         else:
