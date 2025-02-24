@@ -11,7 +11,7 @@ import Design.colors as colors
 
 # Abilites
 import Abilities.Magic as magic
-#import Abilities.BattleArts as battleArts
+import Abilities.BattleArts as battleArts
 import Abilities.Skills as skills
 
 # Items
@@ -611,240 +611,100 @@ def alchemy():
 
 # ======================================================================== LOGIC =============================================================================
 
-save1_path = "Saves\Save1\player_data.txt"
-save2_path = "Saves\Save2\player_data.txt"
-save3_path = "Saves\Save3\player_data.txt"
+def savePath(n):
+    global playerSave_path
 
-def saveLastModified(path): return time.ctime(os.path.getmtime(path))
+    if n == 1:
+        playerSave_path = "Saves\Save1\player.pkl"
+        return "Saves\Save1\player.pkl"
+    elif n == 2:
+        playerSave_path = "Saves\Save2\player.pkl"
+        return "Saves\Save2\player.pkl"
+    elif n == 3:
+        playerSave_path = "Saves\Save3\player.pkl"
+        return "Saves\Save3\player.pkl"
+
+def saveLastModified(path): 
+    try: 
+        return time.ctime(os.path.getmtime(path))
+    except OSError:
+        return "No save found!"
 
 # Save game file
 def save():
-    global player, save_path, o
+    global player, o
 
     clear()
     print("Which file do you want to save to?")
-    print(f"1. Save file 1 -> Last saved on {saveLastModified(save1_path)}")
-    print(f"2. Save file 2 -> Last saved on {saveLastModified(save2_path)}")
-    print(f"3. Save file 3 -> Last saved on {saveLastModified(save3_path)}")
+    print(f"1. Save file 1 -> Last saved on {saveLastModified(savePath(1))}")
+    print(f"2. Save file 2 -> Last saved on {saveLastModified(savePath(2))}")
+    print(f"3. Save file 3 -> Last saved on {saveLastModified(savePath(3))}")
     
     o = opt()
 
-    # Simple player data save
     clear()
-    sv_player_list = [
-        player.name,
-        player.race,
-        str(player.title),
-        str(player.job), 
-        str(player.HP), 
-        str(player.HPMAX), 
-        str(player.AP), 
-        str(player.APMAX), 
-        str(player.MP), 
-        str(player.MPMAX), 
-        str(player.SP), 
-        str(player.SPMAX), 
-        str(player.LVL), 
-        str(player.EXP), 
-        str(player.EXPMAX), 
-        str(player.REP), 
-        str(player.ATK), 
-        str(player.pot), 
-        str(player.elix), 
-        str(player.lums), 
-        str(player.x), 
-        str(player.y), 
-        str(player.standing), 
-        str(player.key)
-        ]
     
     if o == 1:
-        save_path = save1_path
+        save_path = savePath(1)
     elif o == 2:
-        save_path = save2_path
+        save_path = savePath(2)
     elif o == 3:
-        save_path = save3_path
+        save_path = savePath(3)
 
-    with open(save_path, "w") as file:
-            for item in sv_player_list:
-                file.writelines(item + "\n")
+    # Player data 
+    with open(save_path, 'wb') as file:
+        pickle.dump(player, file)
 
-    # Simple player data save
-    clear()
-    mv_player_list = [
-        player.title, 
-        player.job, 
-        ]
-
-    with open(save_path, "a") as file:
-        file.writelines(" ")
-        for item in mv_player_list:
-            file.write(item + " ")
-
-    file.close()
     print(f"Player data saved to file {o} sucessfully!")
     cont()
-    
-    '''
-    list = [
-        player.name,
-        player.race, 
-        player.title, 
-        player.job,
-        str(player.HP),
-        str(player.HPMAX), 
-        str(player.AP), 
-        str(player.APMAX), 
-        str(player.MP), 
-        str(player.MPMAX), 
-        str(player.SP), 
-        str(player.SPMAX),
-        str(player.EXP),
-        str(player.EXPMAX),
-        str(player.REP),
-        str(player.ATK),
-        str(player.pot),
-        str(player.elix),
-        str(player.lums),
-        str(player.x),
-        str(player.y),
-        str(player.standing),
-        str(player.key)
-    ]
-
-    file = open("load.txt", "w")
-
-    for item in list:
-        file.write(item + "\n")
-    file.close()
-    '''
 
 # Autosave game file
 def autosave():
-    global player, save_path, o
+    global player
     
-    # Player data save
     clear()
-    player_list = [
-        player.name, 
-        player.race, 
-        str(player.title), 
-        str(player.job), 
-        str(player.HP), 
-        str(player.HPMAX), 
-        str(player.AP), 
-        str(player.APMAX), 
-        str(player.MP), 
-        str(player.MPMAX), 
-        str(player.SP), 
-        str(player.SPMAX), 
-        str(player.LVL), 
-        str(player.EXP), 
-        str(player.EXPMAX), 
-        str(player.REP), 
-        str(player.ATK), 
-        str(player.pot), 
-        str(player.elix), 
-        str(player.lums), 
-        str(player.x), 
-        str(player.y), 
-        str(player.standing), 
-        str(player.key)
-        ]
-
-    with open(save_path, "w") as file:
-            for item in player_list:
-                file.writelines(item + "\n")
-    file.close()
+    # Player data 
+    with open(playerSave_path, 'wb') as file:
+        pickle.dump(player, file)
 
 # Quicksave game file
 def quicksave():
-    global player, save_path, o
+    global player
     
     # Player data save
     clear()
-    player_list = [
-        player.name, 
-        player.race, 
-        str(player.title), 
-        str(player.job), 
-        str(player.HP), 
-        str(player.HPMAX), 
-        str(player.AP), 
-        str(player.APMAX), 
-        str(player.MP), 
-        str(player.MPMAX), 
-        str(player.SP), 
-        str(player.SPMAX), 
-        str(player.LVL), 
-        str(player.EXP), 
-        str(player.EXPMAX), 
-        str(player.REP), 
-        str(player.ATK), 
-        str(player.pot), 
-        str(player.elix), 
-        str(player.lums), 
-        str(player.x), 
-        str(player.y), 
-        str(player.standing), 
-        str(player.key)
-        ]
+    # Player data 
+    with open(playerSave_path, 'wb') as file:
+        pickle.dump(player, file)
 
-    with open(save_path, "w") as file:
-            for item in player_list:
-                file.writelines(item + "\n")
-    file.close()
     print(f"Player data saved to file {o} sucessfully!")
     cont()
 
 # Load game file
 def load():
-    global player, menu, play, load_path
+    global player, menu, play
 
     clear()
     print("Which file do you want to load?")
-    print(f"1. Save file 1 -> Last saved on {saveLastModified(save1_path)}")
-    print(f"2. Save file 2 -> Last saved on {saveLastModified(save2_path)}")
-    print(f"3. Save file 3 -> Last saved on {saveLastModified(save3_path)}")
+    print(f"1. Save file 1 -> Last saved on {saveLastModified(savePath(1))}")
+    print(f"2. Save file 2 -> Last saved on {saveLastModified(savePath(2))}")
+    print(f"3. Save file 3 -> Last saved on {saveLastModified(savePath(3))}")
     
     o = opt()
 
     if o == 1:
-        load_path = save1_path
+        save_path = savePath(1)
     elif o == 2:
-        load_path = save2_path
+        save_path = savePath(2)
     elif o == 3:
-        load_path = save3_path
+        save_path = savePath(3)
 
-    # Player data load
     try:
-        file = open(load_path, "r")
-        player_list = file.readlines()
-        if len(player_list) == 24:            
-            player.name = player_list[0][:-1]
-            player.race = player_list[1][:-1]
-            player.title = list(player_list[2][:-1]),
-            player.job = list(player_list[3][:-1]),
-            player.HP = int(player_list[4][:-1]),
-            player.HPMAX = int(player_list[5][:-1]),
-            player.AP = int(player_list[6][:-1]),
-            player.APMAX = int(player_list[7][:-1]),
-            player.MP = int(player_list[8][:-1]),
-            player.MPMAX = int(player_list[9][:-1]),
-            player.SP = int(player_list[10][:-1]),
-            player.SPMAX = int(player_list[11][:-1]),
-            player.LVL = int(player_list[12][:-1]),
-            player.EXP = int(player_list[12][:-1]),
-            player.EXPMAX = int(player_list[14][:-1]),
-            player.REP = int(player_list[15][:-1]),
-            player.ATK = int(player_list[16][:-1]),
-            player.pot = int(player_list[17][:-1]),
-            player.elix = int(player_list[18][:-1]),
-            player.lums = int(player_list[19][:-1]),
-            player.x = int(player_list[20][:-1]),
-            player.y = int(player_list[21][:-1]),
-            player.standing = bool(player_list[22][:-1]),
-            player.key = bool(player_list[23][:-1]),
+
+        # Player data
+        with open(save_path, 'rb') as file:
+            player = pickle.load(file)
+
         clear()
         print(f"Welcome back, {player.name}!")
         cont()
@@ -855,51 +715,7 @@ def load():
         clear()
         print("No loadable save file!")
         cont()
-
-    file.close()
     
-    '''
-    clear()
-    try:
-        f = open("load.txt", "r")
-        load_list = f.readlines()
-        if len(load_list) == 23:
-            player.name = load_list[0][:-1]
-            player.race = load_list[1][:-1]
-            player.title = load_list[2][:-1]
-            player.job = load_list[3][:-1]
-            player.HP = int(load_list[4][:-1])
-            player.HPMAX = int(load_list[5][:-1])
-            player.AP = int(load_list[6][:-1])
-            player.APMAX = int(load_list[7][:-1])
-            player.MP = int(load_list[8][:-1])
-            player.MPMAX = int(load_list[9][:-1])
-            player.SP = int(load_list[10][:-1])
-            player.SPMAX = int(load_list[11][:-1])
-            player.EXP = int(load_list[12][:-1])
-            player.EXPMAX = int(load_list[13][:-1])
-            player.REP = int(load_list[14][:-1])
-            player.ATK = int(load_list[15][:-1])
-            player.pot = int(load_list[16][:-1])
-            player.elix = int(load_list[17][:-1])
-            player.lums = int(load_list[18][:-1])
-            player.x = int(load_list[19][:-1])
-            player.y = int(load_list[20][:-1])
-            player.standing = bool(load_list[21][:-1])
-            player.key = bool(load_list[22][:-1])
-            clear()
-            print("Welcome back, " + player.name + "!")
-            input("> ")
-            menu = False
-            play = True
-        else:
-            print("Corrupt save file!")
-            input("> ")
-    except OSError:
-        print("No loadable save file!")
-        input("> ")
-    '''
-
 def rules():
     clear()
     print("I'm the creator of this game and these are the rules.")
