@@ -227,45 +227,175 @@ def characterCreation():
         print("You: I'm female.")
     storywrite("Guard: Now, what race are you?")
     choice = int(input("Races:
-    1.  Human
-    3.  Dwarf
-    4.  Orc
-    5.  Beastman
-    6.  Goblin
-    7.  Ogre
-    8.  Elf
-    9.  Giant
-    10. Fairy
+    1. Human
+    2. Dwarf
+    3. Orc
+    4. Beastman
+    5. Goblin
+    6. Ogre
+    7. Elf
+    8. Giant
+    9. Fairy
      > "))
+    
+    match choice:
+        case 1:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 150
+            DEF = 100
+            SPD = 25
+            AGI = 25
+            PRO = 150
+            MAG = 50
+            CHR = 125
+            INT = 25
+            FRT = 25
+            LUC = 25
+        case 2:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case 3:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case 4:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case 5:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case 6:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case 7:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case 8:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case 9:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case 10:
+            HP = 100
+            AP = 50
+            MP = 50
+            SP = 100
+            STR = 10
+            DEF = 10
+            SPD = 10
+            AGI = 10
+            PRO = 10
+            MAG = 10
+            CHR = 10
+            INT = 10
+            FRT = 10
+            LUC = 10
+        case _:
+            print("Invalid choice")
+    
     storywrite(f"Guard: Huh ok. We don't see {race}s venture through this way often.")
+    storywrite(f"Guard: Alright. Lastly, why are you even here {name}?")
     title = ["Voyager"]
     job = [None]
-
-    # Stats
-    HP = 100
-    HPMAX = HP
-    AP = 50
-    APMAX = AP
-    MP = 50
-    MPMAX = MP
-    SP = 100
-    SPMAX = SP
-    LVL = 1
-    EXP = 0
-    EXPMAX = 100
-    REP = 0
-
-    # Attributes
-    STR = 10
-    DEF = 10
-    SPD = 10
-    AGI = 10
-    PRO = 10
-    MAG = 10
-    CHR = 10
-    INT = 10
-    FRT = 10
-    LUC = 10
 
     # Loadout
     primary = None 
@@ -292,7 +422,7 @@ def characterCreation():
     y = 0
     standing = True
     key = False
-    return Player(name, gender, race, title, job, HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, lums, x, y, standing, key)
+    return Player(name, gender, race, title, job, HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, 0, x, y, standing, key)
 
 class Player:
     def __init__(self, name, gender, race, title, job, 
