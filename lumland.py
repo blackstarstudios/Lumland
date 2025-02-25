@@ -214,10 +214,30 @@ def characterCreation():
     name = input("Guard: What's your name Voyager? > ")
     print(f"You: My name is {name}.")
     storywrite(f"Guard: Nice to meet you {name}")
-    gender = input("Guard: Your gender? > ")
-    print(f"You: I'm {gender}.")
-    race = input("Guard: What race are you? > ")
-    storywrite(f"Guard: Huh ok. We don't see {race} venture through this way often.")
+    storywrite("Guard: Your gender?")
+    choice = int(input("Genders:
+    1. Male
+    2. Female 
+     > "))
+    if choice == 1:
+        gender = 'M'
+        print("You: I'm male.")
+    elif choice == 2:
+        gender = 'F'
+        print("You: I'm female.")
+    storywrite("Guard: Now, what race are you?")
+    choice = int(input("Races:
+    1.  Human
+    3.  Dwarf
+    4.  Orc
+    5.  Beastman
+    6.  Goblin
+    7.  Ogre
+    8.  Elf
+    9.  Giant
+    10. Fairy
+     > "))
+    storywrite(f"Guard: Huh ok. We don't see {race}s venture through this way often.")
     title = ["Voyager"]
     job = [None]
 
