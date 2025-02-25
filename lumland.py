@@ -23,6 +23,7 @@ import Items.equipment as equipment
 # NPCs
 import NPCs.monsters as monsters
 import NPCs.characters as characters
+import NPCs.callings as callings
 
 # Locations
 
@@ -189,12 +190,12 @@ biom = {
 # Amphikin    |  100  075  050  100  |  150   025   025   025   050   150   025   125   100   025
 # Marikin     |  075  100  025  100  |  050   150   150   100   025   025   125   025   025   025
 # Humans      |  100  050  050  100  |  150   100   025   025   150   050   125   025   025   025
-# Canikin     |  100  075  025  100  |  150   150   125   025   100   025   025   025   050   025
+# Canikin     |  100  075  025  100  |  150   125   125   050   100   025   025   025   050   025
 # Felikin     |  075  100  025  100  |  150   025   100   150   025   025   025   125   025   050
 # Replikin    |  100  100  075  025  |  150   025   025   100   050   150   025   125   025   025
 # Avikin      |  075  100  025  100  |  100   025   150   125   050   025   025   150   025   025 
 # Orsikin     |  100  100  025  075  |  150   150   100   025   050   025   025   025   125   025
-# Suikin      |  100  100  025  075  |  125   150   150   025   025   025   025   050   025   100
+# Suikin      |  100  075  025  100  |  125   150   150   025   025   025   025   050   025   100
 # Taurikin    |  100  100  025  075  |  125   150   150   025   100   025   025   025   050   025 
 # Aquakin     |  100  050  050  100  |  125   025   100   150   025   050   025   150   025   025 
 # Elves       |  050  050  100  100  |  100   025   050   150   025   150   025   125   025   025 magicians / archers
@@ -204,12 +205,23 @@ biom = {
 
 def characterCreation():
     clear()
-    #name = input("What's your name, hero? > ")
-    name = "Greg"
-    #race = input("What is your race? > ")
-    race = "Human"
-    title = ["Sword King", "Dragon Slayer"]
-    job = ["Adventurer", "Knight"]
+    storywrite("As you approach the landing dock you lay eyes on the new continent, Lumhuin, a land of swords and magic...")
+    storywrite("*The boat finally docks and as you unboard the vessel, a guard stops you*")
+    storywrite("Guard: Woah there Voyager, you must go through the Lumhuinian registration process for a new ID.")
+    space()
+
+    # Personally identifiable information
+    name = input("Guard: What's your name Voyager? > ")
+    print(f"You: My name is {name}.")
+    storywrite(f"Guard: Nice to meet you {name}")
+    gender = input("Guard: Your gender? > ")
+    print(f"You: I'm {gender}.")
+    race = input("Guard: What race are you? > ")
+    storywrite(f"Guard: Huh ok. We don't see {race} venture through this way often.")
+    title = ["Voyager"]
+    job = [None]
+
+    # Stats
     HP = 100
     HPMAX = HP
     AP = 50
@@ -222,6 +234,8 @@ def characterCreation():
     EXP = 0
     EXPMAX = 100
     REP = 0
+
+    # Attributes
     STR = 10
     DEF = 10
     SPD = 10
@@ -232,6 +246,8 @@ def characterCreation():
     INT = 10
     FRT = 10
     LUC = 10
+
+    # Loadout
     primary = None 
     secondary = None
     head = None
@@ -256,15 +272,16 @@ def characterCreation():
     y = 0
     standing = True
     key = False
-    return Player(name, race, title, job, HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, lums, x, y, standing, key)
+    return Player(name, gender, race, title, job, HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, lums, x, y, standing, key)
 
 class Player:
-    def __init__(self, name, race, title, job, 
+    def __init__(self, name, gender, race, title, job, 
                  HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, 
                  STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
                  primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
                  inventory, pot, elix, lums, x, y, standing, key):
         self.name = name
+        self.gender = gender
         self.race = race
         self.title = title
         self.job = job
