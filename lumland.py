@@ -8,22 +8,21 @@ import os, _pickle as pickle, math, random, time, sys
 import Design.colors as colors
 
 # Custom Libraries
-
 # Abilites
-import Abilities.Magic as magic
-import Abilities.BattleArts as battleArts
-import Abilities.Skills as skills
+import Abilities.magic as magic
+import Abilities.battlearts as battleArts
+import Abilities.skills as skills
 
 # Items
-import Items.Materials as materials
-import Items.Consumables as consumables
-import Items.Equipment as equipment
-import Items.Wearables as wearables
-import Items.Weapons as weapons
+import Items.materials as materials
+import Items.consumables as consumables
+import Items.equipment as equipment
+import Items.wearables as wearables
+import Items.weapons as weapons
 
 # NPCs
-import NPCs.Monsters as monsters
-import NPCs.Characters as characters
+import NPCs.monsters as monsters
+import NPCs.characters as characters
 
 # Locations
 
