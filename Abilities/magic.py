@@ -1,2 +1,3 @@
 class Magic:
-    def __init__(self, name, base, lvl)
+    def __init__(self, name, base, lvl):
+        pass

@@ -1,9 +1,9 @@
 class Items:
-    def __init__(self, name, technicalName, grade, type, condition, effect1, effect2, effect3, enhance1, enhance2, enhance3, enchant1, enchant2, enchant3, description):
+    def __init__(self, name, technicalName, grade, itemType, condition, effect1, effect2, effect3, enhance1, enhance2, enhance3, enchant1, enchant2, enchant3, description):
         self.name = name
         self.technicalName = technicalName
         self.grade = grade
-        self.type = type
+        self.itemType = itemType
         self.condition = condition
         self.effect1 = effect1
         self.effect2 = effect2

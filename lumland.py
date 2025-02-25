@@ -17,8 +17,8 @@ import Abilities.skills as skills
 import Items.materials as materials
 import Items.consumables as consumables
 import Items.equipment as equipment
-import Items.wearables as wearables
-import Items.weapons as weapons
+#import Items.wearables as wearables
+#import Items.weapons as weapons
 
 # NPCs
 import NPCs.monsters as monsters
@@ -83,10 +83,18 @@ lost_stat_symbol = "_"
 
 # Typewrite text
 def typewrite(text):
-	for character in text:
-		sys.stdout.write(character)
-		sys.stdout.flush()
-		time.sleep(0.05)
+    for character in text:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+def storywrite(text):
+    for character in text:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+    cont()
 
 # ======================================================================== ITEMS =============================================================================
 
@@ -290,7 +298,7 @@ class Player:
         self.neck = neck
         self.shoulders = shoulders 
         self.back = back
-        self.chest = ches
+        self.chest = chest
         self.arms = arms
         self.wrist = wrist
         self.hands = hands
@@ -837,7 +845,8 @@ def lumland():
         while menu:
             clear()
             bordl()
-            print("  LUMLAND")
+            typewrite("WELCOME TO LUMLAND")
+            space()
             space()
             print("1. NEW GAME")
             print("2. LOAD GAME")

@@ -1,9 +1,9 @@
 class Characters:
-    def __init__(self, name, race, title, class, job, hp, hpmax, ap, apmax, mp, mpmax, sp, spmax, lvl, exp, expmax, rep, lums, primary, secondary, magics, arts, skills, x, y):
+    def __init__(self, name, race, title, npcClass, job, hp, hpmax, ap, apmax, mp, mpmax, sp, spmax, lvl, exp, expmax, rep, lums, primary, secondary, magics, arts, skills, x, y):
         self.name = name
         self.race = race
         self.title = title
-        self.class = class
+        self.npcClass = npcClass
         self.job = job
         self.hp = hp
         self.hpmax = hpmax
