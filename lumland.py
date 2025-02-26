@@ -216,6 +216,7 @@ def characterCreation():
     name = input("Guard: What's your name Voyager? > ")
     print(f"You: My name is {name}.")
     storywrite(f"Guard: Nice to meet you {name}")
+    space()
 
     # Choose gender
     storywrite("Guard: Your gender?")
@@ -229,6 +230,7 @@ def characterCreation():
     elif option == 2:
         gender = 'F'
         print("You: I'm female.")
+    space()
 
     # Choose race
     storywrite("Guard: Now, what race are you?")
@@ -657,7 +659,8 @@ def characterCreation():
         case _:
             print("Invalid option")
     storywrite(f"Guard: Huh ok. We don't see {race}s venture through this way often.")
-    
+    space()
+
     # Choose aspiration
     storywrite(f"Guard: Alright. Lastly, why are you even here {name}?")
     print("""Aspirations:
@@ -742,7 +745,8 @@ def characterCreation():
             aspiration = [callings.bandit]
         case _:
             print("Invalid option")
-    
+    space()
+
     title = [callings.voyager]
     job = [callings.unemployed]
 
