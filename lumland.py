@@ -90,6 +90,7 @@ def typewrite(text):
         time.sleep(0.05)
 
 def storywrite(text):
+    clear()
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
@@ -204,22 +205,22 @@ biom = {
 # Faries      |  075  025  100  100  |  050   025   025   150   025   150   100   025   025   125 alchemists
 
 def characterCreation():
-    clear()
 
     # intro
     storywrite("As you approach the landing dock you lay eyes on the new continent, Lumhuin, a land of swords and magic...")
     storywrite("*The boat finally docks and as you unboard the vessel, a guard stops you*")
     storywrite("Guard: Woah there Voyager, you must go through the Lumhuinian registrnation process for a new ID.")
-    space()
 
     # Choose name
     name = input("Guard: What's your name Voyager? > ")
     print(f"You: My name is {name}.")
+    
     storywrite(f"Guard: Nice to meet you {name}")
     space()
 
     # Choose gender
-    storywrite("Guard: Your gender?")
+    typewrite("Guard: Your gender?")
+    space()
     print("""Genders:
     1. Male
     2. Female""")
@@ -230,10 +231,12 @@ def characterCreation():
     elif option == 2:
         gender = 'F'
         print("You: I'm female.")
-    space()
+    cont()
+    clear()
 
     # Choose race
-    storywrite("Guard: Now, what race are you?")
+    typewrite("Guard: Now, what race are you?")
+    space()
     print("""Races:
     1. Human -> An ambitious race
     2. Dwarf -> Short in stature, full of heart
@@ -243,8 +246,7 @@ def characterCreation():
     6. Ogre -> Respected soldiers of culture
     7. Elf -> Graceful elders of nature
     8. Giant -> Large gentle farmers
-    9. Fairy -> Mini beings of wonder 
-     > """)
+    9. Fairy -> Mini beings of wonder""")
     option = int(input(" > "))
     
     match option:
@@ -659,10 +661,12 @@ def characterCreation():
         case _:
             print("Invalid option")
     storywrite(f"Guard: Huh ok. We don't see {race}s venture through this way often.")
-    space()
+    cont()
+    clear()
 
     # Choose aspiration
-    storywrite(f"Guard: Alright. Lastly, why are you even here {name}?")
+    typewrite(f"Guard: Alright. Lastly, why are you even here {name}?")
+    space()
     print("""Aspirations:
     1.  Adventurer -> Ultimate task masters 
     2.  Hunter -> Specialized monster hunters
@@ -678,8 +682,7 @@ def characterCreation():
     12. Aristocrat -> Influentual figures of the high courts
     13. Priest -> Devout believers of the faith 
     14. Outdoorsman -> Rugged survivalists, living off their own means
-    15. Bandit -> Cunning kleptomaniacs earning thier keep "off the books"
-        > """)
+    15. Bandit -> Cunning kleptomaniacs earning thier keep "off the books""")
     option = int(input(" > "))
     
     match option:
@@ -1125,8 +1128,7 @@ def shop():
         print("1 - BUY POTION (30HP) - 5 lums")
         print("2 - BUY ELIXIR (MAXHP) - 8 lums")
         print("3 - UPGRADE WEAPON (+2STR) - 10 lums")
-        print("4 - UPGRADE REP (+20STR) - 1 lums")
-        print("5 - LEAVE")
+        print("4 - LEAVE")
         bordl()
 
         choice = input("# ")
@@ -1156,14 +1158,6 @@ def shop():
                 print("Not enough lums!")
             input("> ")
         elif choice == "4":
-            if player.lums >= 1:
-                player.EXP += 20
-                player.lums -= 1
-                print("You've increased your EXP!")
-            else:
-                print("Not enough lums!")
-            input("> ")
-        elif choice == "5":
             buy = False
 
 def mayor():
@@ -1352,9 +1346,16 @@ def cont(): input("> ")
 
 # In-game choice
 def opt():
-    print(" ")
-    o = int(input(" > "))
-    return o
+    try:
+        space()
+        o = int(input(" > "))
+        if isinstance(o, int):
+            return o
+        else:
+            opt()
+    except OSError:
+        print("Not valid input")
+        opt()
 
 # ==================================================================== MAIN GAME LOOP ========================================================================
 
