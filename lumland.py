@@ -727,7 +727,7 @@ def characterCreation():
         case 12:
             HP += 10
             chri += 10
-            aspiration = [callings.aristocrat]
+            aspiration = [callings.aristicrat]
         case 13:
             MP += 10
             chri += 10
@@ -766,6 +766,8 @@ def characterCreation():
     inventory = None
     pot = 1
     elix = 0
+    x = 0
+    y = 0
     standing = True
     key = False
 
