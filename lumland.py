@@ -93,8 +93,8 @@ def storywrite(text):
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
-        time.sleep(0.05)
-
+        time.sleep(0.01)
+    space()
     cont()
 
 # ======================================================================== ITEMS =============================================================================
@@ -205,197 +205,546 @@ biom = {
 
 def characterCreation():
     clear()
+
+    # intro
     storywrite("As you approach the landing dock you lay eyes on the new continent, Lumhuin, a land of swords and magic...")
     storywrite("*The boat finally docks and as you unboard the vessel, a guard stops you*")
-    storywrite("Guard: Woah there Voyager, you must go through the Lumhuinian registration process for a new ID.")
+    storywrite("Guard: Woah there Voyager, you must go through the Lumhuinian registrnation process for a new ID.")
     space()
 
-    # Personally identifiable information
+    # Choose name
     name = input("Guard: What's your name Voyager? > ")
     print(f"You: My name is {name}.")
     storywrite(f"Guard: Nice to meet you {name}")
+
+    # Choose gender
     storywrite("Guard: Your gender?")
-    choice = int(input("Genders:
+    print("""Genders:
     1. Male
-    2. Female 
-     > "))
-    if choice == 1:
+    2. Female""")
+    option = int(input(" > "))
+    if option == 1:
         gender = 'M'
         print("You: I'm male.")
-    elif choice == 2:
+    elif option == 2:
         gender = 'F'
         print("You: I'm female.")
+
+    # Choose race
     storywrite("Guard: Now, what race are you?")
-    choice = int(input("Races:
-    1. Human
-    2. Dwarf
-    3. Orc
-    4. Beastman
-    5. Goblin
-    6. Ogre
-    7. Elf
-    8. Giant
-    9. Fairy
-     > "))
+    print("""Races:
+    1. Human -> An ambitious race
+    2. Dwarf -> Short in stature, full of heart
+    3. Orc -> Battle hardened warriors
+    4. Beastman -> Half man, half beast
+    5. Goblin -> Short green opprotunists
+    6. Ogre -> Respected soldiers of culture
+    7. Elf -> Graceful elders of nature
+    8. Giant -> Large gentle farmers
+    9. Fairy -> Mini beings of wonder 
+     > """)
+    option = int(input(" > "))
     
-    match choice:
+    match option:
         case 1:
             HP = 100
             AP = 50
             MP = 50
             SP = 100
-            STR = 150
-            DEF = 100
-            SPD = 25
-            AGI = 25
-            PRO = 150
-            MAG = 50
-            CHR = 125
-            INT = 25
-            FRT = 25
-            LUC = 25
+            strn = 150
+            defn = 100
+            spd = 25
+            agi = 25
+            pro = 150
+            mag = 50
+            chri = 125
+            intel = 25
+            frt = 25
+            luc = 25
+            race = "Human"
         case 2:
             HP = 100
-            AP = 50
+            AP = 100
             MP = 50
-            SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
+            SP = 50
+            strn = 100
+            defn = 150
+            spd = 25
+            agi = 25
+            pro = 150
+            mag = 25
+            chri = 25
+            intel = 25
+            frt = 125
+            luc = 50
+            race = "Dwarf"
         case 3:
             HP = 100
-            AP = 50
-            MP = 50
-            SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
+            AP = 100
+            MP = 25
+            SP = 75
+            strn = 150
+            defn = 150
+            spd = 125
+            agi = 25
+            pro = 100
+            mag = 25
+            chri = 25
+            intel = 25
+            frt = 50
+            luc = 25
+            race = "Orc"
         case 4:
-            HP = 100
-            AP = 50
-            MP = 50
-            SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
+            storywrite("Guard: Oh, Beastman are ya? Then what is your kin?")
+            print("""Beastmen Races:
+            1.  Canikin -> Pack hunters that wear down their target
+            2.  Felikin -> Predators that always catch their prey
+            3.  Replikin -> Age old lesser dragonkin
+            4.  Aquakin -> Sea dwellers that maximize the depths
+            5.  Avikin -> High flying eyes in the sky
+            6.  Bovikin -> Horned grazers of the plains
+            7.  Orsikin -> Cuddlers with a death grip
+            8.  Taurkin -> Headstrnong fighters
+            9.  Insikin -> Hard hard workers, strnong too
+            10. Lepokin -> Quick and agile bouncers
+            11. Primikin -> Rulers of the high trees
+            12. Crusikin -> True born sailors, armor-plated is a bonus
+            13. Rodikin -> Resilient little furballs
+            14. Amphikin -> Slimy swamp lovers
+            15. Marekin -> Steeds ready for battle 
+            16. Suikin -> Piggly wigglies""")
+            option = int(input(" > "))
+            
+            match option:
+                case 1:
+                    HP = 100
+                    AP = 75
+                    MP = 25
+                    SP = 100
+                    strn = 150
+                    defn = 125
+                    spd = 125
+                    agi = 50
+                    pro = 100
+                    mag = 25
+                    chri = 25
+                    intel = 25
+                    frt = 50
+                    luc = 25
+                    race = "Canikin"
+                case 2:
+                    HP = 75
+                    AP = 100
+                    MP = 25
+                    SP = 100
+                    strn = 150
+                    defn = 25
+                    spd = 100
+                    agi = 150
+                    pro = 25
+                    mag = 25
+                    chri = 25
+                    intel = 125
+                    frt = 25
+                    luc = 50
+                    race = "Felikin"
+                case 3:
+                    HP = 100
+                    AP = 100
+                    MP = 75
+                    SP = 25
+                    strn = 150
+                    defn = 25
+                    spd = 25
+                    agi = 100
+                    pro = 50
+                    mag = 150
+                    chri = 25
+                    intel = 125
+                    frt = 25
+                    luc = 25
+                    race = "Replikin"
+                case 4:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    strn = 125
+                    defn = 25
+                    spd = 100
+                    agi = 150
+                    pro = 25
+                    mag = 50
+                    chri = 25
+                    intel = 150
+                    frt = 25
+                    luc = 25
+                    race = "Aquakin"
+                case 5:
+                    HP = 75
+                    AP = 100
+                    MP = 25
+                    SP = 100
+                    strn = 100
+                    defn = 25
+                    spd = 150
+                    agi = 125
+                    pro = 50
+                    mag = 25
+                    chri = 25
+                    intel = 150
+                    frt = 25
+                    luc = 25
+                    race = "Avikin"
+                case 6:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    strn = 25
+                    defn = 150
+                    spd = 25
+                    agi = 25
+                    pro = 25
+                    mag = 150
+                    chri = 50
+                    intel = 100
+                    frt = 125
+                    luc = 25
+                    race = "Bovikin"
+                case 7:
+                    HP = 100
+                    AP = 100
+                    MP = 25
+                    SP = 75
+                    strn = 150
+                    defn = 150
+                    spd = 100
+                    agi = 25
+                    pro = 50
+                    mag = 25
+                    chri = 25
+                    intel = 25
+                    frt = 125
+                    luc = 25
+                    race = "Ursikin"
+                case 8:
+                    HP = 100
+                    AP = 100
+                    MP = 25
+                    SP = 75
+                    strn = 125
+                    defn = 150
+                    spd = 150
+                    agi = 25
+                    pro = 100
+                    mag = 25
+                    chri = 25
+                    intel = 25
+                    frt = 50
+                    luc = 25
+                    race = "Taurkin"
+                case 9:
+                    HP = 100
+                    AP = 100
+                    MP = 50
+                    SP = 50
+                    strn = 150
+                    defn = 100
+                    spd = 25
+                    agi = 25
+                    pro = 125
+                    mag = 25
+                    chri = 25
+                    intel = 50
+                    frt = 150
+                    luc = 25
+                    race = "Insikin"
+                case 10:
+                    HP = 75
+                    AP = 50
+                    MP = 25
+                    SP = 150
+                    strn = 100
+                    defn = 25
+                    spd = 150
+                    agi = 150
+                    pro = 125
+                    mag = 25
+                    chri = 25
+                    intel = 50
+                    frt = 25
+                    luc = 25
+                    race = "Lepokin"
+                case 11:
+                    HP = 50
+                    AP = 100
+                    MP = 50
+                    SP = 100
+                    strn = 50
+                    defn = 25
+                    spd = 25
+                    agi = 150
+                    pro = 150
+                    mag = 25
+                    chri = 100
+                    intel = 125
+                    frt = 25
+                    luc = 50
+                    race = "Primikin"
+                case 12:
+                    HP = 100
+                    AP = 100
+                    MP = 75
+                    SP = 25
+                    strn = 150
+                    defn = 150
+                    spd = 25
+                    agi = 25
+                    pro = 125
+                    mag = 25
+                    chri = 25
+                    intel = 50
+                    frt = 100
+                    luc = 25
+                    race = "Crusikin"
+                case 13:
+                    HP = 75
+                    AP = 75
+                    MP = 25
+                    SP = 125
+                    strn = 50
+                    defn = 125
+                    spd = 25
+                    agi = 150
+                    pro = 25
+                    mag = 25
+                    chri = 25
+                    intel = 100
+                    frt = 125
+                    luc = 50
+                    race = "Rodikin"
+                case 14:
+                    HP = 100
+                    AP = 75
+                    MP = 50
+                    SP = 100
+                    strn = 150
+                    defn = 25
+                    spd = 25
+                    agi = 25
+                    pro = 50
+                    mag = 150
+                    chri = 25
+                    intel = 125
+                    frt = 100
+                    luc = 25
+                    race = "Amphikin"
+                case 15:
+                    HP = 75
+                    AP = 100
+                    MP = 25
+                    SP = 100
+                    strn = 50
+                    defn = 125
+                    spd = 150
+                    agi = 100
+                    pro = 25
+                    mag = 25
+                    chri = 125
+                    intel = 25
+                    frt = 25
+                    luc = 25
+                    race = "Marekin"
+                case 16:
+                    HP = 100
+                    AP = 75
+                    MP = 25
+                    SP = 100
+                    strn = 125
+                    defn = 150
+                    spd = 150
+                    agi = 25
+                    pro = 25
+                    mag = 25
+                    chri = 25
+                    intel = 50
+                    frt = 25
+                    luc = 100
+                    race = "Suikin"
+                case _:
+                    print("Invalid option")
         case 5:
-            HP = 100
-            AP = 50
-            MP = 50
-            SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
+            HP = 50
+            AP = 100
+            MP = 25
+            SP = 125
+            strn = 50
+            defn = 25
+            spd = 25
+            agi = 100
+            pro = 25
+            mag = 25
+            chri = 150
+            intel = 150
+            frt = 25
+            luc = 125
+            race = "Goblin"
         case 6:
             HP = 100
-            AP = 50
+            AP = 100
             MP = 50
-            SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
+            SP = 50
+            strn = 150
+            defn = 125
+            spd = 25
+            agi = 50
+            pro = 150
+            mag = 25
+            chri = 100
+            intel = 25
+            frt = 25
+            luc = 25
+            race = "Ogre"
         case 7:
-            HP = 100
+            HP = 50
             AP = 50
-            MP = 50
+            MP = 100
             SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
+            strn = 100
+            defn = 25
+            spd = 50
+            agi = 150
+            pro = 25
+            mag = 150
+            chri = 25
+            intel = 125
+            frt = 25
+            luc = 25
+            race = "Elf"
         case 8:
-            HP = 100
-            AP = 50
-            MP = 50
-            SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
+            HP = 125
+            AP = 100
+            MP = 25
+            SP = 50
+            strn = 150
+            defn = 150
+            spd = 25
+            agi = 25
+            pro = 25
+            mag = 25
+            chri = 25
+            intel = 50
+            frt = 125
+            luc = 100
+            race = "Giant"
         case 9:
-            HP = 100
-            AP = 50
-            MP = 50
+            HP = 75
+            AP = 25
+            MP = 100
             SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
-        case 10:
-            HP = 100
-            AP = 50
-            MP = 50
-            SP = 100
-            STR = 10
-            DEF = 10
-            SPD = 10
-            AGI = 10
-            PRO = 10
-            MAG = 10
-            CHR = 10
-            INT = 10
-            FRT = 10
-            LUC = 10
+            strn = 50
+            defn = 25
+            spd = 25
+            agi = 150
+            pro = 25
+            mag = 150
+            chri = 100
+            intel = 25
+            frt = 25
+            luc = 125
+            race = "Fairy"
         case _:
-            print("Invalid choice")
-    
+            print("Invalid option")
     storywrite(f"Guard: Huh ok. We don't see {race}s venture through this way often.")
+    
+    # Choose aspiration
     storywrite(f"Guard: Alright. Lastly, why are you even here {name}?")
-    title = ["Voyager"]
-    job = [None]
+    print("""Aspirations:
+    1.  Adventurer -> Ultimate task masters 
+    2.  Hunter -> Specialized monster hunters
+    3.  Mercenary -> Highly trained soldiers for hire
+    4.  Knight -> Honorable defnenders of the crown
+    5.  magician -> Curious practicioners of magic
+    6.  Duelist -> Skilled athletes of the blade
+    7.  Craftsman -> Handy artists that love their craft
+    8.  Scholar -> Enlightened intelellectuals
+    9.  Engineer-> Ingenious creators
+    10. Merchant -> Money hungry entrepenuers
+    11. Sailor -> Men of the sea...live by it, die by it
+    12. Aristocrat -> Influentual figures of the high courts
+    13. Priest -> Devout believers of the faith 
+    14. Outdoorsman -> Rugged survivalists, living off their own means
+    15. Bandit -> Cunning kleptomaniacs earning thier keep "off the books"
+        > """)
+    option = int(input(" > "))
+    
+    match option:
+        case 1:
+            AP += 10
+            strn += 10
+            aspiration = [callings.adventurer]
+        case 2:
+            HP += 10
+            spd += 10
+            aspiration = [callings.hunter]
+        case 3:
+            AP += 10
+            strn += 10
+            aspiration = [callings.mercenary]
+        case 4:
+            AP += 10
+            defn += 10
+            aspiration = [callings.knight]
+        case 5:
+            MP += 10
+            mag += 10
+            aspiration = [callings.magician]
+        case 6:
+            SP += 10
+            pro += 10
+            aspiration = [callings.duelist]
+        case 7:
+            SP += 10
+            pro += 10
+            aspiration = [callings.craftsman]
+        case 8:
+            MP += 10
+            intel += 10
+            aspiration = [callings.scholar]
+        case 9:
+            SP += 10
+            intel += 10
+            aspiration = [callings.engineer]
+        case 10:
+            SP += 10
+            luc += 10
+            aspiration = [callings.merchant]
+        case 11:
+            HP += 10
+            frt += 10
+            aspiration = [callings.sailor]
+        case 12:
+            HP += 10
+            chri += 10
+            aspiration = [callings.aristocrat]
+        case 13:
+            MP += 10
+            chri += 10
+            aspiration = [callings.priest]
+        case 14:
+            HP += 10
+            frt += 10
+            aspiration = [callings.outdoorsman]
+        case 15:
+            SP += 10
+            agi += 10
+            aspiration = [callings.bandit]
+        case _:
+            print("Invalid option")
+    
+    title = [callings.voyager]
+    job = [callings.unemployed]
 
     # Loadout
     primary = None 
@@ -417,12 +766,10 @@ def characterCreation():
     inventory = None
     pot = 1
     elix = 0
-    lums = 100
-    x = 0
-    y = 0
     standing = True
     key = False
-    return Player(name, gender, race, title, job, HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, 0, x, y, standing, key)
+
+    return Player(name, gender, race, title, job, HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, strn, defn, spd, agi, pro, mag, chri, intel, frt, luc, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, 0, x, y, standing, key)
 
 class Player:
     def __init__(self, name, gender, race, title, job, 
