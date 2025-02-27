@@ -778,7 +778,9 @@ def characterCreation():
     standing = True
     key = False
 
-    return Player(name, gender, race, title, job, HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, strn, defn, spd, agi, pro, mag, chri, intel, frt, luc, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, 0, x, y, standing, key)
+    return Player(name, gender, race, title, job, HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, strn, defn, spd, agi, pro, mag, chri, intel, frt, luc, 
+    primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, 0, x, y, 
+    standing, key)
 
 class Player:
     def __init__(self, name, gender, race, title, job, 
