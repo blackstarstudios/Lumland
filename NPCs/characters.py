@@ -44,6 +44,10 @@ class Character:
         self.x = x
         self.y = y
 
+male = 'M'
+female = 'F'
+other = 'O'
+none = 'N'
 
 supreme_star = "Supreme Star"
 primeval_star = "Primeval Star"
