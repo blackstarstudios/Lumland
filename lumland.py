@@ -4,13 +4,14 @@
 # ====================================================================== LIBRARIES ===========================================================================
 
 # Official Libraries
-import os, _pickle as pickle, math, random, time, sys
+import sys, math, random, time
+import os, _pickle as pickle
 import Design.colors as colors
 
 # Custom Libraries
 # Abilites
 import Abilities.magic as magic
-import Abilities.battlearts as battleArts
+import Abilities.battlearts as battlearts
 import Abilities.skills as skills
 
 # Items
@@ -52,13 +53,10 @@ boss = False
 # ======================================================================== DESIGN ============================================================================
 
 # Clear terminal
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear') # cls - Windows; clear - Unix
+def clear(): os.system('cls' if os.name == 'nt' else 'clear') # cls - Windows; clear - Unix
 
 # Write borderline
-def bordl():
-    print("!=========================!")
-    #print(" ")
+def bordl(): print("!=========================!")
 
 # Write borderline
 #def brdb():
@@ -66,16 +64,13 @@ def bordl():
 #    print("!=====================================!")
 
 # Write underline
-def undrl():
-    print("________________")
+def undrl(): print("________________")
 
 # Write spaceline
-def space():
-    print(" ")
+def space(): print(" ")
 
 # Write sectionline
-def sectl():
-    print("+-----------------+")
+def sectl(): print("+-----------------+")
 
 # Healthbar display
 bars = 20
