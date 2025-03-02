@@ -21,10 +21,10 @@ import Items.equipment as equipment
 #import Items.wearables as wearables
 #import Items.weapons as weapons
 
-# NPCs
-import NPCs.monsters as monsters
-import NPCs.characters as characters
-import NPCs.callings as callings
+# Entities
+import Entities.callings as callings
+import Entities.monsters as monsters
+import Entities.npcs as npcs
 
 # Locations
 
@@ -96,7 +96,7 @@ def storywrite(text):
 
 
 
-# ========================================================================= NPCS =============================================================================
+# ========================================================================= Entities =============================================================================
 
 e_list = ["Goblin", "Orc", "Slime"]
 
@@ -219,10 +219,10 @@ def characterCreation():
     2. Female""")
     option = int(input(" > "))
     if option == 1:
-        gender = 'M'
+        gender = npcs.male
         print("You: I'm male.")
     elif option == 2:
-        gender = 'F'
+        gender = npcs.female
         print("You: I'm female.")
 
     # Choose race
@@ -766,7 +766,11 @@ def characterCreation():
     standing = True
     key = False
 
-    return Player(name, gender, race, title, job, HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, 0, x, y, standing, key)
+    return Player(name, gender, race, title, job, 
+    HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, 
+    STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
+    primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
+    inventory, pot, elix, 0, x, y, standing, key)
 
 class Player:
     def __init__(self, name, gender, race, title, job, 
