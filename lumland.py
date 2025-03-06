@@ -156,16 +156,16 @@ def characterCreation():
     # intro
     storywrite("As you approach the landing dock you lay eyes on the new continent, Lumhuin, a land of swords and magic...")
     storywrite("*The boat finally docks and as you unboard the vessel, a guard stops you*")
-    storywrite("Guard: Woah there Voyager, you must go through the Lumhuinian registrnation process for a new ID.")
+    storywrite("Guard: Woah there Voyager, you must go through the Lumhuinian registration process for a new ID.")
     space()
 
-    # Choose name
+    # Create name
     name = input("Guard: What's your name Voyager? > ")
     print(f"You: My name is {name}.")
     storywrite(f"Guard: Nice to meet you {name}")
 
     # Choose gender
-    storywrite("Guard: Your gender?")
+    typewrite("Guard: Your gender?")
     print("""Genders:
     1. Male
     2. Female""")
@@ -178,7 +178,7 @@ def characterCreation():
         print("You: I'm female.")
 
     # Choose race
-    storywrite("Guard: Now, what race are you?")
+    typewrite("Guard: Now, what race are you?")
     print("""Races:
     1. Human -> An ambitious race
     2. Dwarf -> Short in stature, full of heart
@@ -194,7 +194,7 @@ def characterCreation():
     
     match option:
         case 1:
-            storywrite("Guard: Ok, Human. Where's your homeland?")
+            typewrite("Guard: Ok, Human. Where's your homeland?")
             print("""Human Races:
             1.  Azurean -> Persistent Character of the Terrible Northern glaciers
             2.  Ivor -> Rugged and tough Character of the North
@@ -370,7 +370,7 @@ def characterCreation():
             LUC = 25
             race = Player.orc
         case 4:
-            storywrite("Guard: Oh, Beastman are ya? Then what is your kin?")
+            typewrite("Guard: Oh, Beastman are ya? Then what is your kin?")
             print("""Beastmen Races:
             1.  Canikin -> Pack hunters that wear down their target
             2.  Felikin -> Predators that always catch their prey
@@ -734,7 +734,7 @@ def characterCreation():
     storywrite(f"Guard: Huh ok. We don't see {race}s venture through this way often.")
     
     # Choose aspiration
-    storywrite(f"Guard: Alright. Lastly, why are you even here {name}?")
+    typewrite(f"Guard: Alright. Lastly, why are you even here {name}?")
     print("""Aspirations:
     1.  Adventurer -> Ultimate task masters 
     2.  Hunter -> Specialized monster hunters
