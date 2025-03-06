@@ -1,9 +1,8 @@
 # Monsters
-import characters
 
-class Monsters(characters.Character):
+class Monsters:
     def __init__(self, name, hp, atk, exp, loot):
-        super().__init__(name)
+        self.name = name
         self.hp = hp
         self.atk = atk
         self.exp = exp

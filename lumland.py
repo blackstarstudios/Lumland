@@ -14,17 +14,18 @@ import Design.colors as colors
 #import Abilities.skills as skills
 
 # Items
+import Objects.items as items
 #import Objects.materials as materials
-import Objects.consumables as consumables
+#import Objects.consumables as consumables
 #import Objects.equipment as equipment
-import Objects.wearables as wearables
-import Objects.weapons as weapons
+#import Objects.wearables as wearables
+#import Objects.weapons as weapons
 
 # NPCs
 import Entities.callings as callings
 import Entities.characters as characters
 import Entities.monsters as monsters
-import Entities.npcs as npcs
+#import Entities.npcs as npcs
 
 # Locations
 
@@ -821,25 +822,23 @@ def characterCreation():
     job = [callings.unemployed]
 
     # Loadout
-    primary = weapons.iron_sword
-    secondary = weapons.iron_dagger
-    head = wearables.helmet
-    ears = wearables.earring
-    eyes = wearables.glasses
-    neck = wearables.chain
-    shoulders = wearables.cape
-    back = wearables.backpack
-    chest = wearables.chestplate
-    arms = wearables.sleeve
-    wrist = wearables.bracelet
-    hands = wearables.gloves
-    fingers = wearables.ring
-    waist = wearables.belt
-    legs = wearables.plate_pants
-    feet = wearables.boots
-    inventory = {consumables.basic_hp_potion: 0, consumables.basic_mp_potion: 0, None: None, None: None, None: None, None: None, None: None, None: None, None: None, None: None, }
-    pot = 1
-    elix = 0
+    primary = items.iron_sword
+    secondary = items.iron_dagger
+    head = items.helmet
+    ears = items.earring
+    eyes = items.glasses
+    neck = items.chain
+    shoulders = items.cape
+    back = items.backpack
+    chest = items.chestplate
+    arms = items.sleeve
+    wrist = items.bracelet
+    hands = items.gloves
+    fingers = items.ring
+    waist = items.belt
+    legs = items.plate_pants
+    feet = items.boots
+    inventory = {items.basic_hp_potion: 0, items.basic_mp_potion: 0, None: None, None: None, None: None, None: None, None: None, None: None, None: None, None: None, }
     x = 0
     y = 0
     standing = True
@@ -849,22 +848,19 @@ def characterCreation():
                   HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, 
                   STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
                   primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
-                  inventory, pot, elix, 0, x, y, standing, key)
+                  inventory, 0, x, y, standing, key)
 
 class Player(characters.Character):
     def __init__(self, name, gender, race, title, job, aspiration,
                  HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, 
                  STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
                  primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
-                 inventory, pot, elix, lums, x, y, standing, key):
+                 inventory, lums, x, y, standing, key):
         super().__init__(name, gender, race, title, job, aspiration,
                  HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, 
                  STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
                  primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
                  inventory, lums, x, y)
-        self.pot = pot
-        self.elix = elix
-        self.lums = lums
         self.standing = standing
         self.key = key
 
@@ -1030,25 +1026,27 @@ class Player(characters.Character):
         
         if type == "main":
             print(f"NAME: {player.name}")
+            print(f"LEVEL: {player.LVL}")
             self.healthBars(1, 1, 1, 1, 1)
             print(f"STR: {player.STR}")
-            print(f"POTIONS: {player.pot}")
-            print(f"ELIXIRS: {player.elix}")
+            print(f"POTIONS: {player.inventory[items.basic_hp_potion]}")
+            print(f"ELIXIRS: {player.inventory[items.basic_mp_potion]}")
             print(f"LUMS: {player.lums}")
             print(f"COORD: {player.x}, {player.y}")
 
         elif type == "battle":
             print(f"NAME: {player.name}")
+            print(f"LEVEL: {player.LVL}")
             self.healthBars(1, 1, 1, 1, 1)
             print(f"STR: {player.STR}")
-            print(f"POTIONS: {player.pot}")
-            print(f"ELIXIRS: {player.elix}")
+            print(f"POTIONS: {player.inventory[items.basic_hp_potion]}")
+            print(f"ELIXIRS: {player.inventory[items.basic_mp_potion]}")
 
         elif type == "shop":
             self.healthBars(1, 1, 1, 1, 1)
             print(f"STR: {player.STR}")
-            print(f"POTIONS: {player.pot}")
-            print(f"ELIXIRS: {player.elix}")
+            print(f"POTIONS: {player.inventory[items.basic_hp_potion]}")
+            print(f"ELIXIRS: {player.inventory[items.basic_mp_potion]}")
             print(f"LUMS: {player.lums}")
 
     def statusWindow(self):
@@ -1082,9 +1080,9 @@ def battle():
         player.characterStatus("battle")
         sectl()
         print("1 - ATTACK")
-        if player.inventory[consumables.basic_hp_potion] > 0:
+        if player.inventory[items.basic_hp_potion] > 0:
             print("2 - USE POTION (30HP)")
-        if player.inventory[consumables.basic_mp_potion] > 0:
+        if player.inventory[items.basic_mp_potion] > 0:
             print("3 - USE ELIXIR (50HP)")
         bordl()
 
@@ -1100,8 +1098,8 @@ def battle():
 
         elif choice == "2":
             if player.pot > 0:
-                player.inventory[consumables.basic_hp_potion] -= 1
-                player.heal(consumables.basic_hp_potion.effect1)
+                player.inventory[items.basic_hp_potion] -= 1
+                player.heal(items.basic_hp_potion.effect1)
                 player.HP -= atk
                 print(f"{enemy.name} dealt {atk} damage to {player.name}")
             else:
@@ -1110,8 +1108,8 @@ def battle():
 
         elif choice == "3":
             if player.elix > 0:
-                player.inventory[consumables.basic_mp_potion] -= 1
-                player.restore(consumables.basic_mp_potion.effect1)
+                player.inventory[items.basic_mp_potion] -= 1
+                player.restore(items.basic_mp_potion.effect1)
                 player.HP -= atk
                 print(f"{enemy.name} dealt {atk} damage to {player.name}")
             else:
@@ -1135,7 +1133,7 @@ def battle():
             player.lums += g
             print(f"You've found {g} lums!")
             if random.randint(0, 100) < 30:
-                player.inventory[consumables.basic_hp_potion] += 1
+                player.inventory[items.basic_hp_potion] += 1
                 print("You've found a health potion!")
             if enemy == "Dragon":
                 sectl()
@@ -1167,7 +1165,7 @@ def shop():
 
         if choice == "1":
             if player.lums >= 5:
-                player.inventory[consumables.basic_hp_potion] += 1
+                player.inventory[items.basic_hp_potion] += 1
                 player.lums -= 5
                 print("You've bought a health potion!")
             else:
@@ -1175,7 +1173,7 @@ def shop():
             input("> ")
         elif choice == "2":
             if player.lums >= 8:
-                player.inventory[consumables.basic_mp_potion] += 1
+                player.inventory[items.basic_mp_potion] += 1
                 player.lums -= 8
                 print("You've bought a mana potion!")
             else:
@@ -1432,9 +1430,9 @@ def lumland():
                 sectl()
                 print("0 - SAVE AND QUIT")
                 player.movement()
-                if player.inventory[consumables.basic_hp_potion] > 0:
+                if player.inventory[items.basic_hp_potion] > 0:
                     print("5 - USE HEALTH POTION (30 HP)")
-                if player.inventory[consumables.basic_mp_potion] > 0:
+                if player.inventory[items.basic_mp_potion] > 0:
                     print("6 - USE MANA POTION (30 MP)")
                 if map[player.y][player.x] == "shop" or map[player.y][player.x] == "mayor" or map[player.y][player.x] == "cave":
                     print("7 - ENTER")
@@ -1463,17 +1461,17 @@ def lumland():
                         player.y += 1
                         player.standing = False
                 elif dest == "5":
-                    if player.inventory[consumables.basic_hp_potion] > 0:
-                        player.inventory[consumables.basic_hp_potion] -= 1
-                        player.heal(consumables.basic_hp_potion.effect1)
+                    if player.inventory[items.basic_hp_potion] > 0:
+                        player.inventory[items.basic_hp_potion] -= 1
+                        player.heal(items.basic_hp_potion.effect1)
                     else:
                         print("No health potions!")
                     input("> ")
                     player.standing = True
                 elif dest == "6":
-                    if player.inventory[consumables.basic_mp_potion] > 0:
-                        player.inventory[consumables.basic_mp_potion] -= 1
-                        player.restore(consumables.basic_mp_potion.effect1)
+                    if player.inventory[items.basic_mp_potion] > 0:
+                        player.inventory[items.basic_mp_potion] -= 1
+                        player.restore(items.basic_mp_potion.effect1)
                     else:
                         print("No mana potions!")
                     input("> ")
