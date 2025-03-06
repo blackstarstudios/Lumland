@@ -838,7 +838,7 @@ def characterCreation():
     waist = items.belt
     legs = items.plate_pants
     feet = items.boots
-    inventory = {items.basic_hp_potion: 0, items.basic_mp_potion: 0, None: None, None: None, None: None, None: None, None: None, None: None, None: None, None: None, }
+    inventory = {1: [items.basic_hp_potion, 1], 2: [items.basic_mp_potion, 1], 3: [None, 0], 4: [None, 0], 5: [None, 0], 6: [None, 0], 7: [None, 0], 8: [None, 0], 9: [None, 0], 10: [None, 0], }
     x = 0
     y = 0
     standing = True
