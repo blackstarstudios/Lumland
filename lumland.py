@@ -14,16 +14,17 @@ import Design.colors as colors
 #import Abilities.skills as skills
 
 # Items
-#import Items.materials as materials
-#import Items.consumables as consumables
-#import Items.equipment as equipment
-#import Items.wearables as wearables
-#import Items.weapons as weapons
+#import Objects.materials as materials
+import Objects.consumables as consumables
+#import Objects.equipment as equipment
+import Objects.wearables as wearables
+import Objects.weapons as weapons
 
 # NPCs
-#import NPCs.monsters as monsters
-#import NPCs.characters as characters
-import NPCs.callings as callings
+import Entities.callings as callings
+import Entities.characters as characters
+import Entities.monsters as monsters
+import Entities.npcs as npcs
 
 # Locations
 
@@ -52,13 +53,10 @@ boss = False
 # ======================================================================== DESIGN ============================================================================
 
 # Clear terminal
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear') # cls - Windows; clear - Unix
+def clear(): os.system('cls' if os.name == 'nt' else 'clear') # cls - Windows; clear - Unix
 
 # Write borderline
-def bordl():
-    print("!=========================!")
-    #print(" ")
+def bordl(): print("!=========================!")
 
 # Write borderline
 #def brdb():
@@ -66,16 +64,13 @@ def bordl():
 #    print("!=====================================!")
 
 # Write underline
-def undrl():
-    print("________________")
+def undrl(): print("________________")
 
 # Write spaceline
-def space():
-    print(" ")
+def space(): print(" ")
 
 # Write sectionline
-def sectl():
-    print("+-----------------+")
+def sectl(): print("+-----------------+")
 
 # Healthbar display
 bars = 20
@@ -90,6 +85,7 @@ def typewrite(text):
         time.sleep(0.05)
 
 def storywrite(text):
+    clear()
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
@@ -103,30 +99,7 @@ def storywrite(text):
 
 # ========================================================================= NPCS =============================================================================
 
-e_list = ["Goblin", "Orc", "Slime"]
-
-mobs = {
-    "Goblin": {
-        "hp": 15,
-        "at": 3,
-        "go": 8
-    },
-    "Orc": {
-        "hp": 35,
-        "at": 5,
-        "go": 18
-    },
-    "Slime": {
-        "hp": 30,
-        "at": 2,
-        "go": 12
-    },
-    "Dragon": {
-        "hp": 100,
-        "at": 8,
-        "go": 100
-    }
-}
+mob_spawnlist = [monsters.goblin, monsters.slime, monsters.orc]
 
 # ======================================================================= LOCATIONS ==========================================================================
 
@@ -176,33 +149,6 @@ biom = {
 
 # ======================================================================== PLAYER ============================================================================
 
-#  RACE NAME  |   HP   AP   MP   SP  |  STR   DEF   SPD   AGI   PRO   MAG   CHR   INT   FRT   LUC
-#-------------|----------------------|-----------------------------------------------------------
-# Giants      |  125  100  025  050  |  150   150   025   025   025   025   025   050   125   100 farmers
-# Orcs        |  100  100  025  075  |  150   150   125   025   100   025   025   025   050   025 warriors 
-# Ogres       |  100  100  050  050  |  150   125   025   050   150   025   100   025   025   025 soldiers
-# Crusikin    |  100  100  075  025  |  150   150   025   025   125   025   025   050   100   025
-# Lepokin     |  075  050  025  150  |  100   025   150   150   125   025   025   050   025   025
-# Bovikin     |  100  050  050  100  |  025   150   025   025   025   150   050   100   125   025
-# Insikin     |  100  100  050  050  |  150   100   025   025   125   025   025   050   150   025
-# Primikin    |  050  100  050  100  |  050   025   025   150   150   025   100   125   025   025
-# Rodikin     |  075  075  025  125  |  050   125   025   150   025   025   025   100   125   050
-# Amphikin    |  100  075  050  100  |  150   025   025   025   050   150   025   125   100   025
-# Marikin     |  075  100  025  100  |  050   150   150   100   025   025   125   025   025   025
-# Humans      |  100  050  050  100  |  150   100   025   025   150   050   125   025   025   025
-# Canikin     |  100  075  025  100  |  150   125   125   050   100   025   025   025   050   025
-# Felikin     |  075  100  025  100  |  150   025   100   150   025   025   025   125   025   050
-# Replikin    |  100  100  075  025  |  150   025   025   100   050   150   025   125   025   025
-# Avikin      |  075  100  025  100  |  100   025   150   125   050   025   025   150   025   025 
-# Orsikin     |  100  100  025  075  |  150   150   100   025   050   025   025   025   125   025
-# Suikin      |  100  075  025  100  |  125   150   150   025   025   025   025   050   025   100
-# Taurikin    |  100  100  025  075  |  125   150   150   025   100   025   025   025   050   025 
-# Aquakin     |  100  050  050  100  |  125   025   100   150   025   050   025   150   025   025 
-# Elves       |  050  050  100  100  |  100   025   050   150   025   150   025   125   025   025 magicians / archers
-# Dwarves     |  100  100  050  050  |  100   150   025   025   150   025   025   025   125   050 blacksmiths / tanks / heavy
-# Goblins     |  050  100  025  125  |  050   025   025   100   025   025   150   150   025   125 merchants / 
-# Faries      |  075  025  100  100  |  050   025   025   150   025   150   100   025   025   125 alchemists
-
 def characterCreation():
     clear()
 
@@ -224,10 +170,10 @@ def characterCreation():
     2. Female""")
     option = int(input(" > "))
     if option == 1:
-        gender = 'M'
+        gender = Player.male
         print("You: I'm male.")
     elif option == 2:
-        gender = 'F'
+        gender = Player.female
         print("You: I'm female.")
 
     # Choose race
@@ -247,53 +193,181 @@ def characterCreation():
     
     match option:
         case 1:
-            HP = 100
-            AP = 50
-            MP = 50
-            SP = 100
-            strn = 150
-            defn = 100
-            spd = 25
-            agi = 25
-            pro = 150
-            mag = 50
-            chri = 125
-            intel = 25
-            frt = 25
-            luc = 25
-            race = "Human"
+            storywrite("Guard: Ok, Human. Where's your homeland?")
+            print("""Human Races:
+            1.  Azurean -> Persistent Character of the Terrible Northern glaciers
+            2.  Ivor -> Rugged and tough Character of the North
+            3.  Hunyadi -> Honorable Character of the Eastern mountains
+            4.  Laudquin -> The oldest line of main continent humans  
+            5.  Carmissean -> Suavest Character of the beaches
+            6.  Tearan -> Native islanders of the tropics
+            7.  Parakere -> Indigeinous Character of the Jungle
+            8.  Marron -> Proud and mighty Character of the Scorchlands""")
+            option = int(input(" > "))
+            
+            match option:
+                case 1:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 150
+                    MAG = 50
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.azurean
+                case 2:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 150
+                    MAG = 50
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.ivor
+                case 3:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 150
+                    MAG = 50
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.hunyadi
+                case 4:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 150
+                    MAG = 50
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.laudquin
+                case 5:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 150
+                    MAG = 50
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.carmissean
+                case 6:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 150
+                    MAG = 50
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.tearan
+                case 7:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 150
+                    MAG = 50
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.parakere
+                case 8:
+                    HP = 100
+                    AP = 50
+                    MP = 50
+                    SP = 100
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 150
+                    MAG = 50
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.marron
+                case _:
+                    print("Invalid option")
         case 2:
             HP = 100
             AP = 100
             MP = 50
             SP = 50
-            strn = 100
-            defn = 150
-            spd = 25
-            agi = 25
-            pro = 150
-            mag = 25
-            chri = 25
-            intel = 25
-            frt = 125
-            luc = 50
-            race = "Dwarf"
+            STR = 100
+            DEF = 150
+            SPD = 25
+            AGI = 25
+            PRO = 150
+            MAG = 25
+            CHR = 25
+            INT = 25
+            FRT = 125
+            LUC = 50
+            race = Player.dwarf
         case 3:
             HP = 100
             AP = 100
             MP = 25
             SP = 75
-            strn = 150
-            defn = 150
-            spd = 125
-            agi = 25
-            pro = 100
-            mag = 25
-            chri = 25
-            intel = 25
-            frt = 50
-            luc = 25
-            race = "Orc"
+            STR = 150
+            DEF = 150
+            SPD = 125
+            AGI = 25
+            PRO = 100
+            MAG = 25
+            CHR = 25
+            INT = 25
+            FRT = 50
+            LUC = 25
+            race = Player.orc
         case 4:
             storywrite("Guard: Oh, Beastman are ya? Then what is your kin?")
             print("""Beastmen Races:
@@ -304,7 +378,7 @@ def characterCreation():
             5.  Avikin -> High flying eyes in the sky
             6.  Bovikin -> Horned grazers of the plains
             7.  Orsikin -> Cuddlers with a death grip
-            8.  Taurkin -> Headstrnong fighters
+            8.  Taurkin -> Headstrong fighters
             9.  Insikin -> Hard hard workers, strnong too
             10. Lepokin -> Quick and agile bouncers
             11. Primikin -> Rulers of the high trees
@@ -321,257 +395,257 @@ def characterCreation():
                     AP = 75
                     MP = 25
                     SP = 100
-                    strn = 150
-                    defn = 125
-                    spd = 125
-                    agi = 50
-                    pro = 100
-                    mag = 25
-                    chri = 25
-                    intel = 25
-                    frt = 50
-                    luc = 25
-                    race = "Canikin"
+                    STR = 150
+                    DEF = 125
+                    SPD = 125
+                    AGI = 50
+                    PRO = 100
+                    MAG = 25
+                    CHR = 25
+                    INT = 25
+                    FRT = 50
+                    LUC = 25
+                    race = Player.canikin
                 case 2:
                     HP = 75
                     AP = 100
                     MP = 25
                     SP = 100
-                    strn = 150
-                    defn = 25
-                    spd = 100
-                    agi = 150
-                    pro = 25
-                    mag = 25
-                    chri = 25
-                    intel = 125
-                    frt = 25
-                    luc = 50
-                    race = "Felikin"
+                    STR = 150
+                    DEF = 25
+                    SPD = 100
+                    AGI = 150
+                    PRO = 25
+                    MAG = 25
+                    CHR = 25
+                    INT = 125
+                    FRT = 25
+                    LUC = 50
+                    race = Player.felikin
                 case 3:
                     HP = 100
                     AP = 100
                     MP = 75
                     SP = 25
-                    strn = 150
-                    defn = 25
-                    spd = 25
-                    agi = 100
-                    pro = 50
-                    mag = 150
-                    chri = 25
-                    intel = 125
-                    frt = 25
-                    luc = 25
-                    race = "Replikin"
+                    STR = 150
+                    DEF = 25
+                    SPD = 25
+                    AGI = 100
+                    PRO = 50
+                    MAG = 150
+                    CHR = 25
+                    INT = 125
+                    FRT = 25
+                    LUC = 25
+                    race = Player.replikin
                 case 4:
                     HP = 100
                     AP = 50
                     MP = 50
                     SP = 100
-                    strn = 125
-                    defn = 25
-                    spd = 100
-                    agi = 150
-                    pro = 25
-                    mag = 50
-                    chri = 25
-                    intel = 150
-                    frt = 25
-                    luc = 25
-                    race = "Aquakin"
+                    STR = 125
+                    DEF = 25
+                    SPD = 100
+                    AGI = 150
+                    PRO = 25
+                    MAG = 50
+                    CHR = 25
+                    INT = 150
+                    FRT = 25
+                    LUC = 25
+                    race = Player.aquakin
                 case 5:
                     HP = 75
                     AP = 100
                     MP = 25
                     SP = 100
-                    strn = 100
-                    defn = 25
-                    spd = 150
-                    agi = 125
-                    pro = 50
-                    mag = 25
-                    chri = 25
-                    intel = 150
-                    frt = 25
-                    luc = 25
-                    race = "Avikin"
+                    STR = 100
+                    DEF = 25
+                    SPD = 150
+                    AGI = 125
+                    PRO = 50
+                    MAG = 25
+                    CHR = 25
+                    INT = 150
+                    FRT = 25
+                    LUC = 25
+                    race = Player.avikin
                 case 6:
                     HP = 100
                     AP = 50
                     MP = 50
                     SP = 100
-                    strn = 25
-                    defn = 150
-                    spd = 25
-                    agi = 25
-                    pro = 25
-                    mag = 150
-                    chri = 50
-                    intel = 100
-                    frt = 125
-                    luc = 25
-                    race = "Bovikin"
+                    STR = 25
+                    DEF = 150
+                    SPD = 25
+                    AGI = 25
+                    PRO = 25
+                    MAG = 150
+                    CHR = 50
+                    INT = 100
+                    FRT = 125
+                    LUC = 25
+                    race = Player.bovikin
                 case 7:
                     HP = 100
                     AP = 100
                     MP = 25
                     SP = 75
-                    strn = 150
-                    defn = 150
-                    spd = 100
-                    agi = 25
-                    pro = 50
-                    mag = 25
-                    chri = 25
-                    intel = 25
-                    frt = 125
-                    luc = 25
-                    race = "Ursikin"
+                    STR = 150
+                    DEF = 150
+                    SPD = 100
+                    AGI = 25
+                    PRO = 50
+                    MAG = 25
+                    CHR = 25
+                    INT = 25
+                    FRT = 125
+                    LUC = 25
+                    race = Player.orsikin
                 case 8:
                     HP = 100
                     AP = 100
                     MP = 25
                     SP = 75
-                    strn = 125
-                    defn = 150
-                    spd = 150
-                    agi = 25
-                    pro = 100
-                    mag = 25
-                    chri = 25
-                    intel = 25
-                    frt = 50
-                    luc = 25
-                    race = "Taurkin"
+                    STR = 125
+                    DEF = 150
+                    SPD = 150
+                    AGI = 25
+                    PRO = 100
+                    MAG = 25
+                    CHR = 25
+                    INT = 25
+                    FRT = 50
+                    LUC = 25
+                    race = Player.taurkin
                 case 9:
                     HP = 100
                     AP = 100
                     MP = 50
                     SP = 50
-                    strn = 150
-                    defn = 100
-                    spd = 25
-                    agi = 25
-                    pro = 125
-                    mag = 25
-                    chri = 25
-                    intel = 50
-                    frt = 150
-                    luc = 25
-                    race = "Insikin"
+                    STR = 150
+                    DEF = 100
+                    SPD = 25
+                    AGI = 25
+                    PRO = 125
+                    MAG = 25
+                    CHR = 25
+                    INT = 50
+                    FRT = 150
+                    LUC = 25
+                    race = Player.insikin
                 case 10:
                     HP = 75
                     AP = 50
                     MP = 25
                     SP = 150
-                    strn = 100
-                    defn = 25
-                    spd = 150
-                    agi = 150
-                    pro = 125
-                    mag = 25
-                    chri = 25
-                    intel = 50
-                    frt = 25
-                    luc = 25
-                    race = "Lepokin"
+                    STR = 100
+                    DEF = 25
+                    SPD = 150
+                    AGI = 150
+                    PRO = 125
+                    MAG = 25
+                    CHR = 25
+                    INT = 50
+                    FRT = 25
+                    LUC = 25
+                    race = Player.lepokin
                 case 11:
                     HP = 50
                     AP = 100
                     MP = 50
                     SP = 100
-                    strn = 50
-                    defn = 25
-                    spd = 25
-                    agi = 150
-                    pro = 150
-                    mag = 25
-                    chri = 100
-                    intel = 125
-                    frt = 25
-                    luc = 50
-                    race = "Primikin"
+                    STR = 50
+                    DEF = 25
+                    SPD = 25
+                    AGI = 150
+                    PRO = 150
+                    MAG = 25
+                    CHR = 100
+                    INT = 125
+                    FRT = 25
+                    LUC = 50
+                    race = Player.primikin
                 case 12:
                     HP = 100
                     AP = 100
                     MP = 75
                     SP = 25
-                    strn = 150
-                    defn = 150
-                    spd = 25
-                    agi = 25
-                    pro = 125
-                    mag = 25
-                    chri = 25
-                    intel = 50
-                    frt = 100
-                    luc = 25
-                    race = "Crusikin"
+                    STR = 150
+                    DEF = 150
+                    SPD = 25
+                    AGI = 25
+                    PRO = 125
+                    MAG = 25
+                    CHR = 25
+                    INT = 50
+                    FRT = 100
+                    LUC = 25
+                    race = Player.crusikin
                 case 13:
                     HP = 75
                     AP = 75
                     MP = 25
                     SP = 125
-                    strn = 50
-                    defn = 125
-                    spd = 25
-                    agi = 150
-                    pro = 25
-                    mag = 25
-                    chri = 25
-                    intel = 100
-                    frt = 125
-                    luc = 50
-                    race = "Rodikin"
+                    STR = 50
+                    DEF = 125
+                    SPD = 25
+                    AGI = 150
+                    PRO = 25
+                    MAG = 25
+                    CHR = 25
+                    INT = 100
+                    FRT = 125
+                    LUC = 50
+                    race = Player.rodikin
                 case 14:
                     HP = 100
                     AP = 75
                     MP = 50
                     SP = 100
-                    strn = 150
-                    defn = 25
-                    spd = 25
-                    agi = 25
-                    pro = 50
-                    mag = 150
-                    chri = 25
-                    intel = 125
-                    frt = 100
-                    luc = 25
-                    race = "Amphikin"
+                    STR = 150
+                    DEF = 25
+                    SPD = 25
+                    AGI = 25
+                    PRO = 50
+                    MAG = 150
+                    CHR = 25
+                    INT = 125
+                    FRT = 100
+                    LUC = 25
+                    race = Player.amphikin
                 case 15:
                     HP = 75
                     AP = 100
                     MP = 25
                     SP = 100
-                    strn = 50
-                    defn = 125
-                    spd = 150
-                    agi = 100
-                    pro = 25
-                    mag = 25
-                    chri = 125
-                    intel = 25
-                    frt = 25
-                    luc = 25
-                    race = "Marekin"
+                    STR = 50
+                    DEF = 125
+                    SPD = 150
+                    AGI = 100
+                    PRO = 25
+                    MAG = 25
+                    CHR = 125
+                    INT = 25
+                    FRT = 25
+                    LUC = 25
+                    race = Player.marekin
                 case 16:
                     HP = 100
                     AP = 75
                     MP = 25
                     SP = 100
-                    strn = 125
-                    defn = 150
-                    spd = 150
-                    agi = 25
-                    pro = 25
-                    mag = 25
-                    chri = 25
-                    intel = 50
-                    frt = 25
-                    luc = 100
-                    race = "Suikin"
+                    STR = 125
+                    DEF = 150
+                    SPD = 150
+                    AGI = 25
+                    PRO = 25
+                    MAG = 25
+                    CHR = 25
+                    INT = 50
+                    FRT = 25
+                    LUC = 100
+                    race = Player.suikin
                 case _:
                     print("Invalid option")
         case 5:
@@ -579,81 +653,81 @@ def characterCreation():
             AP = 100
             MP = 25
             SP = 125
-            strn = 50
-            defn = 25
-            spd = 25
-            agi = 100
-            pro = 25
-            mag = 25
-            chri = 150
-            intel = 150
-            frt = 25
-            luc = 125
-            race = "Goblin"
+            STR = 50
+            DEF = 25
+            SPD = 25
+            AGI = 100
+            PRO = 25
+            MAG = 25
+            CHR = 150
+            INT = 150
+            FRT = 25
+            LUC = 125
+            race = Player.goblin
         case 6:
             HP = 100
             AP = 100
             MP = 50
             SP = 50
-            strn = 150
-            defn = 125
-            spd = 25
-            agi = 50
-            pro = 150
-            mag = 25
-            chri = 100
-            intel = 25
-            frt = 25
-            luc = 25
-            race = "Ogre"
+            STR = 150
+            DEF = 125
+            SPD = 25
+            AGI = 50
+            PRO = 150
+            MAG = 25
+            CHR = 100
+            INT = 25
+            FRT = 25
+            LUC = 25
+            race = Player.ogre
         case 7:
             HP = 50
             AP = 50
             MP = 100
             SP = 100
-            strn = 100
-            defn = 25
-            spd = 50
-            agi = 150
-            pro = 25
-            mag = 150
-            chri = 25
-            intel = 125
-            frt = 25
-            luc = 25
-            race = "Elf"
+            STR = 100
+            DEF = 25
+            SPD = 50
+            AGI = 150
+            PRO = 25
+            MAG = 150
+            CHR = 25
+            INT = 125
+            FRT = 25
+            LUC = 25
+            race = Player.elf
         case 8:
             HP = 125
             AP = 100
             MP = 25
             SP = 50
-            strn = 150
-            defn = 150
-            spd = 25
-            agi = 25
-            pro = 25
-            mag = 25
-            chri = 25
-            intel = 50
-            frt = 125
-            luc = 100
-            race = "Giant"
+            STR = 150
+            DEF = 150
+            SPD = 25
+            AGI = 25
+            PRO = 25
+            MAG = 25
+            CHR = 25
+            INT = 50
+            FRT = 125
+            LUC = 100
+            race = Player.giant
         case 9:
             HP = 75
             AP = 25
             MP = 100
             SP = 100
-            strn = 50
-            defn = 25
-            spd = 25
-            agi = 150
-            pro = 25
-            mag = 150
-            chri = 100
-            intel = 25
-            frt = 25
-            luc = 125
-            race = "Fairy"
+            STR = 50
+            DEF = 25
+            SPD = 25
+            AGI = 150
+            PRO = 25
+            MAG = 150
+            CHR = 100
+            INT = 25
+            FRT = 25
+            LUC = 125
+            race = Player.fairy
         case _:
             print("Invalid option")
     storywrite(f"Guard: Huh ok. We don't see {race}s venture through this way often.")
@@ -682,64 +756,64 @@ def characterCreation():
     match option:
         case 1:
             AP += 10
-            strn += 10
-            aspiration = [callings.adventurer]
+            STR += 10
+            aspiration = [callings.adventuring]
         case 2:
             HP += 10
-            spd += 10
-            aspiration = [callings.hunter]
+            SPD += 10
+            aspiration = [callings.slaying]
         case 3:
             AP += 10
-            strn += 10
-            aspiration = [callings.mercenary]
+            STR += 10
+            aspiration = [callings.hired_hand]
         case 4:
             AP += 10
-            defn += 10
-            aspiration = [callings.knight]
+            DEF += 10
+            aspiration = [callings.honorable]
         case 5:
             MP += 10
-            mag += 10
-            aspiration = [callings.magician]
+            MAG += 10
+            aspiration = [callings.mystical]
         case 6:
             SP += 10
-            pro += 10
-            aspiration = [callings.duelist]
+            PRO += 10
+            aspiration = [callings.athletic]
         case 7:
             SP += 10
-            pro += 10
-            aspiration = [callings.craftsman]
+            PRO += 10
+            aspiration = [callings.craftful]
         case 8:
             MP += 10
-            intel += 10
-            aspiration = [callings.scholar]
+            INT += 10
+            aspiration = [callings.academic]
         case 9:
             SP += 10
-            intel += 10
-            aspiration = [callings.engineer]
+            INT += 10
+            aspiration = [callings.innovative]
         case 10:
             SP += 10
-            luc += 10
-            aspiration = [callings.merchant]
+            LUC += 10
+            aspiration = [callings.mercantile]
         case 11:
             HP += 10
-            frt += 10
-            aspiration = [callings.sailor]
+            FRT += 10
+            aspiration = [callings.sailing]
         case 12:
             HP += 10
-            chri += 10
-            aspiration = [callings.aristicrat]
+            CHR += 10
+            aspiration = [callings.political]
         case 13:
             MP += 10
-            chri += 10
-            aspiration = [callings.priest]
+            CHR += 10
+            aspiration = [callings.faithful]
         case 14:
             HP += 10
-            frt += 10
-            aspiration = [callings.outdoorsman]
+            FRT += 10
+            aspiration = [callings.survival]
         case 15:
             SP += 10
-            agi += 10
-            aspiration = [callings.bandit]
+            AGI += 10
+            aspiration = [callings.unlawful]
         case _:
             print("Invalid option")
     
@@ -747,23 +821,23 @@ def characterCreation():
     job = [callings.unemployed]
 
     # Loadout
-    primary = None 
-    secondary = None
-    head = None
-    ears = None
-    eyes = None
-    neck = None
-    shoulders = None 
-    back = None
-    chest = None
-    arms = None
-    wrist = None
-    hands = None
-    fingers = None
-    waist = None
-    legs = None
-    feet = None
-    inventory = None
+    primary = weapons.iron_sword
+    secondary = weapons.iron_dagger
+    head = wearables.helmet
+    ears = wearables.earring
+    eyes = wearables.glasses
+    neck = wearables.chain
+    shoulders = wearables.cape
+    back = wearables.backpack
+    chest = wearables.chestplate
+    arms = wearables.sleeve
+    wrist = wearables.bracelet
+    hands = wearables.gloves
+    fingers = wearables.ring
+    waist = wearables.belt
+    legs = wearables.plate_pants
+    feet = wearables.boots
+    inventory = {consumables.basic_hp_potion: 0, consumables.basic_mp_potion: 0, None: None, None: None, None: None, None: None, None: None, None: None, None: None, None: None, }
     pot = 1
     elix = 0
     x = 0
@@ -771,63 +845,26 @@ def characterCreation():
     standing = True
     key = False
 
-    return Player(name, gender, race, title, job, HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, strn, defn, spd, agi, pro, mag, chri, intel, frt, luc, primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, inventory, pot, elix, 0, x, y, standing, key)
+    return Player(name, gender, race, title, job, aspiration, 
+                  HP, HP, AP, AP, MP, MP, SP, SP, 1, 0, 100, 0, 
+                  STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
+                  primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
+                  inventory, pot, elix, 0, x, y, standing, key)
 
-class Player:
-    def __init__(self, name, gender, race, title, job, 
+class Player(characters.Character):
+    def __init__(self, name, gender, race, title, job, aspiration,
                  HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, 
                  STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
                  primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
                  inventory, pot, elix, lums, x, y, standing, key):
-        self.name = name
-        self.gender = gender
-        self.race = race
-        self.title = title
-        self.job = job
-        self.HP = HP
-        self.HPMAX = HPMAX
-        self.AP = AP
-        self.APMAX = APMAX
-        self.MP = MP
-        self.MPMAX = MPMAX
-        self.SP = SP
-        self.SPMAX = SPMAX
-        self.LVL = LVL
-        self.EXP = EXP
-        self.EXPMAX = EXPMAX
-        self.REP = REP
-        self.STR = STR
-        self.DEF = DEF
-        self.SPD = SPD
-        self.AGI = AGI
-        self.PRO = PRO
-        self.MAG = MAG
-        self.CHR = CHR
-        self.INT = INT
-        self.FRT = FRT
-        self.LUC = LUC
-        self.primary = primary 
-        self.secondary = secondary
-        self.head = head
-        self.ears = ears
-        self.eyes = eyes
-        self.neck = neck
-        self.shoulders = shoulders 
-        self.back = back
-        self.chest = chest
-        self.arms = arms
-        self.wrist = wrist
-        self.hands = hands
-        self.fingers = fingers
-        self.waist = waist
-        self.legs = legs
-        self.feet = feet
-        self.inventory = inventory
+        super().__init__(name, gender, race, title, job, aspiration,
+                 HP, HPMAX, AP, APMAX, MP, MPMAX, SP, SPMAX, LVL, EXP, EXPMAX, REP, 
+                 STR, DEF, SPD, AGI, PRO, MAG, CHR, INT, FRT, LUC, 
+                 primary, secondary, head, ears, eyes, neck, shoulders, back, chest, arms, wrist, hands, fingers, waist, legs, feet, 
+                 inventory, lums, x, y)
         self.pot = pot
         self.elix = elix
         self.lums = lums
-        self.x = x
-        self.y = y
         self.standing = standing
         self.key = key
 
@@ -1026,27 +1063,28 @@ def battle():
     global player, fight, play, run, boss
 
     if not boss:
-        enemy = random.choice(e_list)
+        enemy = random.choice(mob_spawnlist)
     else:
-        enemy = "Dragon"
-    hp = mobs[enemy]["hp"]
+        enemy = monsters.dragon
+    hp = enemy.hp
     hpmax = hp
-    STR = mobs[enemy]["at"]
-    g = mobs[enemy]["go"]
+    atk = enemy.atk
+    e = enemy.exp
+    g = enemy.loot
 
     while fight:
         clear()
         bordl()
-        print(F"Defeat the {enemy}!")
+        print(F"Defeat the {enemy.name}!")
         sectl()
-        print(f"{enemy}'s HP: {hp} / {hpmax}")
+        print(f"{enemy.name}'s HP: {hp} / {hpmax}")
         print(f"{player.name}'s HP: {player.HP} / {player.HPMAX}")
         player.characterStatus("battle")
         sectl()
         print("1 - ATTACK")
-        if player.pot > 0:
+        if player.inventory[consumables.basic_hp_potion] > 0:
             print("2 - USE POTION (30HP)")
-        if player.elix > 0:
+        if player.inventory[consumables.basic_mp_potion] > 0:
             print("3 - USE ELIXIR (50HP)")
         bordl()
 
@@ -1054,34 +1092,34 @@ def battle():
 
         if choice == "1":
             hp -= player.STR
-            print(f"{player.name} dealt {player.STR} damage to the {enemy}")
+            print(f"{player.name} dealt {player.STR} damage to the {enemy.name}")
             if hp > 0:
-                player.HP -= STR
-                print(f"{enemy} dealt {STR} damage to {player.name}")
+                player.HP -= atk
+                print(f"{enemy.name} dealt {atk} damage to {player.name}")
             input("> ")
 
         elif choice == "2":
             if player.pot > 0:
-                player.pot -= 1
-                player.heal(30)
-                player.HP -= STR
-                print(f"{enemy} dealt {STR} damage to {player.name}")
+                player.inventory[consumables.basic_hp_potion] -= 1
+                player.heal(consumables.basic_hp_potion.effect1)
+                player.HP -= atk
+                print(f"{enemy.name} dealt {atk} damage to {player.name}")
             else:
                 print("No potions!")
             input("> ")
 
         elif choice == "3":
             if player.elix > 0:
-                player.elix -= 1
-                player.heal(50)
-                player.HP -= STR
-                print(f"{enemy} dealt {STR} damage to {player.name}")
+                player.inventory[consumables.basic_mp_potion] -= 1
+                player.restore(consumables.basic_mp_potion.effect1)
+                player.HP -= atk
+                print(f"{enemy.name} dealt {atk} damage to {player.name}")
             else:
                 print("No elixirs!")
             input("> ")
 
         if player.HP <= 0:
-            print(f"{enemy} defeated {player.name}...")
+            print(f"{enemy.name} defeated {player.name}...")
             sectl()
             fight = False
             play = False
@@ -1090,14 +1128,15 @@ def battle():
             input("> ")
 
         if hp <= 0:
-            print(f"{player.name} defeated the {enemy}!")
+            print(f"{player.name} defeated the {enemy.name}!")
             sectl()
             fight = False
+            player.levelUp(e)
             player.lums += g
             print(f"You've found {g} lums!")
             if random.randint(0, 100) < 30:
-                player.pot += 1
-                print("You've found a potion!")
+                player.inventory[consumables.basic_hp_potion] += 1
+                print("You've found a health potion!")
             if enemy == "Dragon":
                 sectl()
                 print("Congratulations, you've finished the game!")
@@ -1118,28 +1157,27 @@ def shop():
         player.characterStatus("shop")
         print(f"STR: {player.STR}")
         sectl()
-        print("1 - BUY POTION (30HP) - 5 lums")
-        print("2 - BUY ELIXIR (MAXHP) - 8 lums")
-        print("3 - UPGRADE WEAPON (+2STR) - 10 lums")
-        print("4 - UPGRADE REP (+20STR) - 1 lums")
-        print("5 - LEAVE")
+        print("1 - BUY HEALTH POTION (30 HP) - 5 lums")
+        print("2 - BUY MANA POTION (30 MP) - 8 lums")
+        print("3 - UPGRADE WEAPON (+2 STR) - 10 lums")
+        print("4 - LEAVE")
         bordl()
 
         choice = input("# ")
 
         if choice == "1":
             if player.lums >= 5:
-                player.pot += 1
+                player.inventory[consumables.basic_hp_potion] += 1
                 player.lums -= 5
-                print("You've bought a potion!")
+                print("You've bought a health potion!")
             else:
                 print("Not enough lums!")
             input("> ")
         elif choice == "2":
             if player.lums >= 8:
-                player.elix += 1
+                player.inventory[consumables.basic_mp_potion] += 1
                 player.lums -= 8
-                print("You've bought an elixir!")
+                print("You've bought a mana potion!")
             else:
                 print("Not enough lums!")
             input("> ")
@@ -1152,14 +1190,6 @@ def shop():
                 print("Not enough lums!")
             input("> ")
         elif choice == "4":
-            if player.lums >= 1:
-                player.EXP += 20
-                player.lums -= 1
-                print("You've increased your EXP!")
-            else:
-                print("Not enough lums!")
-            input("> ")
-        elif choice == "5":
             buy = False
 
 def mayor():
@@ -1228,14 +1258,14 @@ def savePath(n):
     global playerSave_path
 
     if n == 1:
-        playerSave_path = "Saves\Save1\player.pkl"
-        return "Saves\Save1\player.pkl"
+        playerSave_path = "Saves\\GameSave1\\player.pkl"
+        return "Saves\\GameSave1\\player.pkl"
     elif n == 2:
-        playerSave_path = "Saves\Save2\player.pkl"
-        return "Saves\Save2\player.pkl"
+        playerSave_path = "Saves\\GameSave2\\player.pkl"
+        return "Saves\\GameSave2\\player.pkl"
     elif n == 3:
-        playerSave_path = "Saves\Save3\player.pkl"
-        return "Saves\Save3\player.pkl"
+        playerSave_path = "Saves\\GameSave3\\player.pkl"
+        return "Saves\\GameSave3\\player.pkl"
 
 def saveLastModified(path): 
     try: 
@@ -1402,10 +1432,10 @@ def lumland():
                 sectl()
                 print("0 - SAVE AND QUIT")
                 player.movement()
-                if player.pot > 0:
-                    print("5 - USE POTION (30HP)")
-                if player.elix > 0:
-                    print("6 - USE ELIXIR (50HP)")
+                if player.inventory[consumables.basic_hp_potion] > 0:
+                    print("5 - USE HEALTH POTION (30 HP)")
+                if player.inventory[consumables.basic_mp_potion] > 0:
+                    print("6 - USE MANA POTION (30 MP)")
                 if map[player.y][player.x] == "shop" or map[player.y][player.x] == "mayor" or map[player.y][player.x] == "cave":
                     print("7 - ENTER")
                 bordl()
@@ -1433,19 +1463,19 @@ def lumland():
                         player.y += 1
                         player.standing = False
                 elif dest == "5":
-                    if player.pot > 0:
-                        player.pot -= 1
-                        player.heal(30)
+                    if player.inventory[consumables.basic_hp_potion] > 0:
+                        player.inventory[consumables.basic_hp_potion] -= 1
+                        player.heal(consumables.basic_hp_potion.effect1)
                     else:
-                        print("No potions!")
+                        print("No health potions!")
                     input("> ")
                     player.standing = True
                 elif dest == "6":
-                    if player.elix > 0:
-                        player.elix -= 1
-                        player.heal(50)
+                    if player.inventory[consumables.basic_mp_potion] > 0:
+                        player.inventory[consumables.basic_mp_potion] -= 1
+                        player.restore(consumables.basic_mp_potion.effect1)
                     else:
-                        print("No elixirs!")
+                        print("No mana potions!")
                     input("> ")
                     player.standing = True
                 elif dest == "7":
