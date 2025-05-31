@@ -67,6 +67,7 @@ import mechanics.alchemy as alchemy
 import mechanics.battle as battle
 import mechanics.enchant as enchant
 import mechanics.shop as shop
+import mechanics.log as log
 
 ### objects
 import objects.item as item
@@ -92,12 +93,12 @@ import progression.quest as quest
 import progression.achievement as achievement
 
 ### text
-import text.lore_text as ltext
-import text.event_text as etext
-import text.description_text as dtext
-import text.dialogue.monster_text as mtext
-import text.dialogue.npc_text as ntext
-import text.dialogue.player_text as utext
+import text.lore_text as lorext
+import text.event_text as eventxt
+import text.description_text as descriptxt
+import text.dialogue.monster_text as monsterxt
+import text.dialogue.npc_text as npcxt
+import text.dialogue.player_text as playerxt
 
 ### ui
 import ui.design.color as color
@@ -125,11 +126,11 @@ import data.internal.data as data, data.balance as balance, data.config as confi
 import entities.entity as entity, entities.monster as monster, entities.npc as npc
 import events.event as event
 import locations.location as location, locations.realm as realm, locations.region as region, locations.nation as nation, locations.dungeon as dungeon 
-import mechanics.movement as movement, mechanics.inventory as inventory, mechanics.speak as speak, mechanics.craft as craft, mechanics.augment as augment, mechanics.alchemy as alchemy, mechanics.battle as battle, mechanics.enchant as enchant, mechanics.shop as shop
+import mechanics.movement as movement, mechanics.inventory as inventory, mechanics.speak as speak, mechanics.craft as craft, mechanics.augment as augment, mechanics.alchemy as alchemy, mechanics.battle as battle, mechanics.enchant as enchant, mechanics.shop as shop, mechanics.log as log
 import objects.item as item, objects.material as material, objects.consumable as consumable, objects.collectible as collectible, objects.equipment as equipment, objects.wearable as wearable, objects.weapon as weapon
 import organizations.organization as org, organizations.government as govt, organizations.shop as shop, organizations.guild as guild
 import user.player as user, user.profile as profile
 import progression.quest as quest, progression.achievement as achievement
-import text.lore_text as ltext, text.event_text as etext, text.description_text as dtext, text.dialogue.monster_text as mtext, text.dialogue.npc_text as ntext, text.dialogue.player_text as utext
+import text.lore_text as lorext, text.event_text as eventxt, text.description_text as descriptxt, text.dialogue.monster_text as monsterxt, text.dialogue.npc_text as npcxt, text.dialogue.player_text as playerxt
 import ui.design.color as color, ui.design.style as style, ui.design.progressbar as pbar, ui.menu as menu, ui.inventory_window as invui, ui.status_window as statui, ui.shop_window as shopui, ui.battle_window as battleui, ui.augment_window as augmentui, ui.craft_window as craftui, ui.travel_window as moveui
 import utils.text_util as tutil, utils.math_util as mutil
