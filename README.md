@@ -1,2 +1,135 @@
 # Lumland
 Text-based fantasy rpg
+
+## Project Checklist
+
+- [x] Project setup
+- [ ] Main game loop
+- [ ] Player state management
+- [ ] Player attributes
+- [ ] Status points
+- [ ] Status effects
+- [ ] World map design
+- [ ] Area navigation
+- [ ] Movement commands
+- [ ] NPC creation
+- [ ] Monster AI
+- [ ] Power/level system
+- [ ] Power scaling
+- [ ] Turn-based combat
+- [ ] Combat actions
+- [ ] Damage calculation
+- [ ] Loot system
+- [ ] Item classes
+- [ ] Item rarity
+- [ ] Inventory system
+- [ ] Item management
+- [ ] Currency system
+- [ ] Economy
+- [ ] Shops
+- [ ] Buying/selling
+- [ ] Quest system
+- [ ] Main quests
+- [ ] Side quests
+- [ ] Quest tracking
+- [ ] Dungeon generation
+- [ ] Dungeon themes
+- [ ] Dungeon monsters
+- [ ] Dungeon puzzles
+- [ ] Save/load system
+- [ ] Game log
+- [ ] Command parser
+- [ ] Help/tutorial
+- [ ] Player progression
+- [ ] XP system
+- [ ] Skill system
+- [ ] Magic system
+- [ ] Spellcasting
+- [ ] Magic items
+- [ ] Character classes
+- [ ] NPC dialogue
+- [ ] Random encounters
+- [ ] Event system
+- [ ] Day/night cycle
+- [ ] Weather system
+- [ ] Environmental effects
+- [ ] Reputation system
+- [ ] Crafting system
+- [ ] Resource gathering
+- [ ] Cooking
+- [ ] Alchemy
+- [ ] Character customization
+- [ ] Stats display
+- [ ] Map/minimap display
+- [ ] Save encryption
+- [ ] Multiplayer (optional)
+- [ ] Achievements
+- [ ] Leaderboards
+- [ ] Sound effects
+- [ ] Music
+- [ ] UI design
+- [ ] Text formatting
+- [ ] Accessibility options
+- [ ] Localization
+- [ ] Error handling
+- [ ] Performance
+- [ ] Mod support
+- [ ] Logging
+- [ ] AI scaling
+- [ ] Boss battles
+- [ ] Companion system
+- [ ] Mounts
+- [ ] Housing
+- [ ] Guild system
+- [ ] Trade/auction
+- [ ] Mail/messaging
+- [ ] Economy balance
+- [ ] World events
+- [ ] Lore/worldbuilding
+- [ ] Cutscenes
+- [ ] Autosave
+- [ ] Input remapping
+- [ ] Command history
+- [ ] Debug console
+- [ ] Cheat codes
+- [ ] Random loot
+- [ ] Enemy AI
+- [ ] Trap disarming
+- [ ] Stealth
+- [ ] Crafting recipes
+- [ ] Skill trees
+- [ ] Achievements tracking
+- [ ] Inventory sorting
+- [ ] Party system
+- [ ] Turn order
+- [ ] Status icons
+- [ ] Damage/healing display
+- [ ] Settings menu
+- [ ] Pause/resume
+- [ ] Save backups
+- [ ] Cloud saves
+- [ ] Analytics
+- [ ] Feedback system
+- [ ] Bug reporting
+- [ ] Community features
+- [ ] In-game tutorials
+- [ ] Dynamic difficulty
+- [ ] Player housing
+- [ ] Seasonal events
+- [ ] Game encyclopedia
+- [ ] NPC routines
+- [ ] Faction wars
+- [ ] Player trading
+- [ ] Quest branching
+- [ ] Multiple endings
+- [ ] Final testing
+- [ ] Beta testing
+- [ ] Gather feedback
+- [ ] User docs
+- [ ] README/install guide
+- [ ] Changelog
+- [ ] Packaging
+- [ ] Executable builds
+- [ ] Upload to GitHub
+- [ ] Publish to PyPI
+- [ ] Release announcement
