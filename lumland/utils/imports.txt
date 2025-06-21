@@ -1,0 +1,120 @@
+# Imports Directory
+
+## Official Imports
+import os
+import sys
+import math
+import random
+import time
+import _pickle as pickle
+import datetime
+import re
+import json
+import csv
+import statistics
+import tempfile
+import decimal
+import fractions
+import hashlib
+import logging
+import string
+import itertools
+import functools
+
+## --------------------------------------------------------- Custom Imports ----------------------------------------------------------
+### abilities
+import abilities.ability as ability
+import abilities.skill as skill
+import abilities.art as art
+import abilities.magic as magic
+import abilities.power as power
+
+### classifications
+import classifications.ambition as ambition
+import classifications.job as job
+import classifications.rarity as rarity
+import classifications.title as title
+
+### data
+data.internal.states as state
+data.internal.data as data
+data.balance as balance
+data.config as config
+data.datetime as dt
+data.economy as econ
+
+### entities
+import entities.entity as entity
+import entities.monster as monster
+import entities.npc as npc
+
+### events
+import events.event as event
+
+### locations
+import locations.location as location
+import locations.realm as realm
+import locations.region as region
+import locations.nation as nation
+import locations.dungeon as dungeon
+
+### mechanics
+import mechanics.movement as movement
+import mechanics.inventory as inventory
+import mechanics.talk as speak
+import mechanics.craft as craft
+import mechanics.augment as augment
+import mechanics.alchemy as alchemy
+import mechanics.battle as battle
+import mechanics.enchant as enchant
+import mechanics.shop as shop
+import mechanics.log as log
+
+### objects
+import objects.item as item
+import objects.material as material
+import objects.consumable as consumable
+import objects.collectible as collectible
+import objects.equipment as equipment
+import objects.wearable as wearable
+import objects.weapon as weapon
+
+### organizations
+import organizations.organization as org
+import organizations.government as govt
+import organizations.shop as shop
+import organizations.guild as guild
+
+### user
+import user.player as user
+import user.profile as profile
+
+### progression
+import progression.quest as quest
+import progression.achievement as achievement
+
+### text
+import text.lore_text as lorext
+import text.event_text as eventxt
+import text.description_text as descriptxt
+import text.dialogue.monster_text as monsterxt
+import text.dialogue.npc_text as npcxt
+import text.dialogue.player_text as playerxt
+
+### ui
+import ui.design.color as color
+import ui.design.style as style
+import ui.design.progressbar as pbar
+import ui.menu as menu
+import ui.inventory_window as invui
+import ui.status_window as statui
+import ui.shop_window as shopui
+import ui.battle_window as battleui
+import ui.augment_window as augmentui
+import ui.craft_window as craftui
+import ui.travel_window as moveui
+
+### utils
+import utils.system_util as sutil
+import utils.text_util as tutil
+import utils.math_util as mutil
