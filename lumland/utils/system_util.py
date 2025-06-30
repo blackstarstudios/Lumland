@@ -2,7 +2,7 @@
 import data.internal.states as state
 
 # Exit to the main menu
-def exit(): state.play = False
+def exitGame(): state.play = False
 
 # Quit the game
-def quit(): state.run = False
+def quitGame(): state.run = False
