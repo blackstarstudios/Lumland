@@ -7,9 +7,7 @@ def bordl(): print("!=========================!")
 def undrl(): print("________________")
 
 # Write spaceline
-def space(): 
-    print("")
-    print("")
+def space(): print("")
 
 # Write sectionline
 def sectl(): print("+-----------------+")

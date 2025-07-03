@@ -7,7 +7,7 @@ class Player:
                  hp, hpmax, mp, mpmax, ap, apmax, sp, spmax, lvl, xp, xpmax, rep, 
                  stg, dfn, spd, agi, pro, mag, chr, itl, frt, luc, lums, x, y, 
                  head, ears, eyes, mouth, neck, shoulders, arms, wrists, hands, fingers, back, chest, waist, legs, feet, 
-                 inventory, primary, secondary, atk, prot, power, skill, art, magic, companion, party, 
+                 inventory, primary, secondary, sidearm, atk, prot, power, skill, art, magic, companion, party, 
                  standing):
         self.name: str = name
         self.gender: str = gender
@@ -57,8 +57,9 @@ class Player:
         self.legs: list = legs
         self.feet: list = feet
         self.inventory: list = inventory #type
-        self.primary: list = primary #type
-        self.secondary: list = secondary #type
+        self.primary: str = primary #type
+        self.secondary: str = secondary #type
+        self.sidearm: str = sidearm #type
         self.atk: int = atk
         self.prot: int = prot
         self.power: list = power
@@ -118,8 +119,9 @@ def characterCreation():
     legs = []
     feet = []
     inventory = []
-    primary = ["Iron Sword"]
-    secondary = []
+    primary = "Iron Sword"
+    secondary = "Iron Shield"
+    sidearm = "Iron Knife"
     atk = 10
     prot = 10
     power = []
@@ -134,10 +136,10 @@ def characterCreation():
     tutil.cont()
 
     return Player(name, gender, race, title, rank, job, ambition, 
-                       hp, hpmax, mp, mpmax, ap, apmax, sp, spmax, lvl, xp, xpmax, rep, 
-                       stg, dfn, spd, agi, pro, mag, chr, itl, frt, luc, lums, x, y, 
-                       head, ears, eyes, mouth, neck, shoulders, arms, wrists, hands, fingers, back, chest, waist, legs, feet, 
-                       inventory, primary, secondary, atk, prot, power, skill, art, magic, companion, party, standing)
+                hp, hpmax, mp, mpmax, ap, apmax, sp, spmax, lvl, xp, xpmax, rep, 
+                stg, dfn, spd, agi, pro, mag, chr, itl, frt, luc, lums, x, y, 
+                head, ears, eyes, mouth, neck, shoulders, arms, wrists, hands, fingers, back, chest, waist, legs, feet, 
+                inventory, primary, secondary, sidearm, atk, prot, power, skill, art, magic, companion, party, standing)
 
 # Player(name, gender, race, title, rank, job, ambition, hp, hpmax, mp, mpmax, ap, apmax, sp, spmax, lvl, xp, xpmax, rep, stg, dfn, spd, agi, pro, mag, chr, itl, frt, luc, lums, x, y, head, ears, eyes, mouth, neck, shoulders, arms, wrists, hands, fingers, back, chest, waist, legs, feet, inventory, primary, secondary, atk, prot, power, skill, art, magic, companion, party, standing)
     
